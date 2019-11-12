@@ -1,7 +1,10 @@
 package server;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.ServerSocket;
+import java.net.Socket;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -15,6 +18,9 @@ public class Server {
 
     public static void main(String[] args) {
         Server server = new Server();
+        server.initializeServer();
+        System.out.println("Server initialized");
+        server.listenConnections();
     }
 
     private void initializeServer() {
@@ -35,5 +41,49 @@ public class Server {
         }
     }
 
+    private void listenConnections() {
+        System.out.println("Listening connections ... ");
+        //noinspection InfiniteLoopStatement
+        while (true) {
+            try {
+                Socket client = socket.accept();
+                new Thread(() -> {
+                    System.out.println("Client accepted");
+                    try {
+                        OutputStream outputStream = client.getOutputStream();
+                        InputStream inputStream = client.getInputStream();
 
+                        String clientAction;
+                        String queryContent;
+
+                        boolean flag = true;
+
+                        while (flag) {
+                            byte[] msg = new byte[100];
+                            int k = inputStream.read(msg);
+                            clientAction = new String(msg, 0, k);
+                            clientAction = clientAction.trim();
+                            msg = new byte[100];
+                            k = inputStream.read(msg);
+                            queryContent = new String(msg, 0, k);
+                            queryContent = queryContent.trim();
+                            System.out.println(clientAction);
+                            System.out.println(queryContent);
+
+                            if (clientAction.equalsIgnoreCase("END")) {
+                                flag = false;
+                            }
+                            else if (clientAction.equalsIgnoreCase("LOGIN")) {
+                                System.out.println("Login action");
+                            }
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                });
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }
