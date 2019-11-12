@@ -6,7 +6,6 @@ import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.sql.*;
-import java.util.Objects;
 
 public class Server {
 
@@ -48,7 +47,7 @@ public class Server {
                 new Thread(() -> {
                     System.out.println("Client accepted");
                     try {
-                        OutputStream outputStream = Objects.requireNonNull(client).getOutputStream();
+                        OutputStream outputStream = client.getOutputStream();
                         InputStream inputStream = client.getInputStream();
 
                         String clientAction;
@@ -65,28 +64,24 @@ public class Server {
                             k = inputStream.read(msg);
                             queryContent = new String(msg, 0, k);
                             queryContent = queryContent.trim();
-                            System.out.println(clientAction);
-                            System.out.println(queryContent);
 
                             if (clientAction.equalsIgnoreCase("END")) {
                                 flag = false;
                             } else if (clientAction.equalsIgnoreCase("LOGIN")) {
-                                System.out.println("Login action");
                                 String[] arr = queryContent.split(" ");
                                 String login = arr[0];
                                 String password = arr[1];
-                                if (isUserExists(login, password)){
-                                    System.out.println("exists");
+                                if (isUserExists(login, password)) {
+                                    sendDataToClient(outputStream, "EXISTS");
+                                } else {
+                                    sendDataToClient(outputStream, "EMPTY");
                                 }
                             } else if (clientAction.equalsIgnoreCase("REGISTER")) {
                                 String[] arr = queryContent.split(" ");
                                 String login = arr[0];
                                 String password = arr[1];
                                 registerUser(login, password);
-                                System.out.println("register");
-                                if (isUserExists(login, password)){
-                                    System.out.println("exists");
-                                }
+                                sendDataToClient(outputStream, "REGISTERED");
                             }
                         }
                     } catch (IOException e) {
@@ -99,10 +94,18 @@ public class Server {
         }
     }
 
+    private void sendDataToClient(OutputStream outputStream, String data) {
+        try {
+            outputStream.write(data.getBytes());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     private boolean isUserExists(String login, String password) {
         boolean isExist = false;
         try {
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM user WHERE login='"+login+"' AND password='"+password+"'");
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM user WHERE login='" + login + "' AND password='" + password + "'");
             resultSet.last();
             if (resultSet.getRow() != 0) {
                 isExist = true;
@@ -113,9 +116,9 @@ public class Server {
         return isExist;
     }
 
-    private void registerUser(String login, String password){
+    private void registerUser(String login, String password) {
         try {
-            statement.executeUpdate("INSERT INTO user (login, password, role) VALUE ('" + login +"', '"+password+"', 0");
+            statement.executeUpdate("INSERT INTO user (login, password, role) VALUE ('" + login + "', '" + password + "', 0)");
         } catch (SQLException e) {
             e.printStackTrace();
         }

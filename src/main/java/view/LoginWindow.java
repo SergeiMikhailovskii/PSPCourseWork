@@ -27,7 +27,7 @@ public class LoginWindow extends JFrame {
     }
 
     public void showMessageDialog(String text, int dialogType) {
-        JOptionPane.showMessageDialog(this, text, "Login", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(this, text, "Login", dialogType);
     }
 
     public void showRegisterDialog() {
