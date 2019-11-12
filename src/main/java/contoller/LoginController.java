@@ -34,7 +34,7 @@ public class LoginController {
 
     public void registerUser(String login, String password) {
         sendDataToServer("REGISTER");
-        sendDataToServer(login+" "+password);
+        sendDataToServer(login + " " + password);
     }
 
     public void attachView(LoginWindow window) {

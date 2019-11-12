@@ -48,8 +48,8 @@ public class Server {
         while (true) {
             try {
                 Socket client = socket.accept();
-                if (client != null){
-                    System.out.println("accepted. port "+ client.getPort());
+                if (client != null) {
+                    System.out.println("accepted. port " + client.getPort());
                 }
                 new Thread(() -> {
                     System.out.println("Client accepted");
@@ -77,9 +77,10 @@ public class Server {
 
                             if (clientAction.equalsIgnoreCase("END")) {
                                 flag = false;
-                            }
-                            else if (clientAction.equalsIgnoreCase("LOGIN")) {
+                            } else if (clientAction.equalsIgnoreCase("LOGIN")) {
                                 System.out.println("Login action");
+                            } else if (clientAction.equalsIgnoreCase("REGISTER")) {
+                                System.out.println("Register action");
                             }
                         }
                     } catch (IOException e) {
