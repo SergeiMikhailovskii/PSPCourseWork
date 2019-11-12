@@ -55,7 +55,7 @@ public class LoginWindow extends JFrame {
         setSize(450, 200);
     }
 
-    public void showDialog(String text) {
+    public void showMessageDialog(String text, int dialogType) {
         JOptionPane.showMessageDialog(this, text, "Login", JOptionPane.INFORMATION_MESSAGE);
     }
 
