@@ -86,7 +86,7 @@ public class Server {
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-                });
+                }).start();
             } catch (IOException e) {
                 e.printStackTrace();
             }
