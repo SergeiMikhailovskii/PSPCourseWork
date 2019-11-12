@@ -22,6 +22,11 @@ public class LoginController {
         if (!login.isEmpty() && !password.isEmpty()) {
             sendDataToServer("LOGIN");
             sendDataToServer("");
+
+            //todo fix query
+
+            //if (data from server == not found)
+            window.showRegisterDialog();
         } else {
             window.showMessageDialog("Fill the fields!", JOptionPane.ERROR_MESSAGE);
         }

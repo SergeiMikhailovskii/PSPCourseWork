@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Objects;
 
 public class Server {
 
@@ -47,10 +48,13 @@ public class Server {
         while (true) {
             try {
                 Socket client = socket.accept();
+                if (client != null){
+                    System.out.println("accepted. port "+ client.getPort());
+                }
                 new Thread(() -> {
                     System.out.println("Client accepted");
                     try {
-                        OutputStream outputStream = client.getOutputStream();
+                        OutputStream outputStream = Objects.requireNonNull(client).getOutputStream();
                         InputStream inputStream = client.getInputStream();
 
                         String clientAction;

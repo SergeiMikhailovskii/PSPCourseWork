@@ -14,11 +14,37 @@ public class LoginWindow extends JFrame {
 
     private LoginController loginController = new LoginController();
 
+    public static void main(String[] args) {
+        LoginWindow loginWindow = new LoginWindow();
+        loginWindow.setVisible(true);
+    }
+
     private LoginWindow() {
         super("Login window");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         loginController.attachView(this);
         initWindow();
+    }
+
+    public void showMessageDialog(String text, int dialogType) {
+        JOptionPane.showMessageDialog(this, text, "Login", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    public void showRegisterDialog() {
+        String[] options = {"Yes, please", "No, thanks"};
+        int x = JOptionPane.showOptionDialog(
+                this,
+                "Such user is not found. Do you want to register?",
+                "Register",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                options,
+                options[0]);
+
+        if (x == 0) {
+            System.out.println("registration");
+        }
     }
 
     private void initWindow() {
@@ -53,14 +79,5 @@ public class LoginWindow extends JFrame {
         });
 
         setSize(450, 200);
-    }
-
-    public void showMessageDialog(String text, int dialogType) {
-        JOptionPane.showMessageDialog(this, text, "Login", JOptionPane.INFORMATION_MESSAGE);
-    }
-
-    public static void main(String[] args) {
-        LoginWindow loginWindow = new LoginWindow();
-        loginWindow.setVisible(true);
     }
 }
