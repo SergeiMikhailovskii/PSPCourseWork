@@ -5,10 +5,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.Objects;
 
 public class Server {
@@ -48,13 +45,9 @@ public class Server {
         while (true) {
             try {
                 Socket client = socket.accept();
-                if (client != null) {
-                    System.out.println("accepted. port " + client.getPort());
-                }
                 new Thread(() -> {
                     System.out.println("Client accepted");
                     try {
-                        System.out.println("in try");
                         OutputStream outputStream = Objects.requireNonNull(client).getOutputStream();
                         InputStream inputStream = client.getInputStream();
 
@@ -79,8 +72,21 @@ public class Server {
                                 flag = false;
                             } else if (clientAction.equalsIgnoreCase("LOGIN")) {
                                 System.out.println("Login action");
+                                String[] arr = queryContent.split(" ");
+                                String login = arr[0];
+                                String password = arr[1];
+                                if (isUserExists(login, password)){
+                                    System.out.println("exists");
+                                }
                             } else if (clientAction.equalsIgnoreCase("REGISTER")) {
-                                System.out.println("Register action");
+                                String[] arr = queryContent.split(" ");
+                                String login = arr[0];
+                                String password = arr[1];
+                                registerUser(login, password);
+                                System.out.println("register");
+                                if (isUserExists(login, password)){
+                                    System.out.println("exists");
+                                }
                             }
                         }
                     } catch (IOException e) {
@@ -90,6 +96,28 @@ public class Server {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    private boolean isUserExists(String login, String password) {
+        boolean isExist = false;
+        try {
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM user WHERE login='"+login+"' AND password='"+password+"'");
+            resultSet.last();
+            if (resultSet.getRow() != 0) {
+                isExist = true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return isExist;
+    }
+
+    private void registerUser(String login, String password){
+        try {
+            statement.executeUpdate("INSERT INTO user (login, password, role) VALUE ('" + login +"', '"+password+"', 0");
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 }
