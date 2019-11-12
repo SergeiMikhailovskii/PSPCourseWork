@@ -54,6 +54,7 @@ public class Server {
                 new Thread(() -> {
                     System.out.println("Client accepted");
                     try {
+                        System.out.println("in try");
                         OutputStream outputStream = Objects.requireNonNull(client).getOutputStream();
                         InputStream inputStream = client.getInputStream();
 

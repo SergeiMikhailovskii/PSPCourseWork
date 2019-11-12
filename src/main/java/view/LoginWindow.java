@@ -43,7 +43,9 @@ public class LoginWindow extends JFrame {
                 options[0]);
 
         if (x == 0) {
-            System.out.println("registration");
+            String login = loginTF.getText();
+            String password = passwordTF.getText();
+            loginController.registerUser(login, password);
         }
     }
 

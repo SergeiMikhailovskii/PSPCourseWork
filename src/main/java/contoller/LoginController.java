@@ -21,7 +21,7 @@ public class LoginController {
     public void logInUser(String login, String password) {
         if (!login.isEmpty() && !password.isEmpty()) {
             sendDataToServer("LOGIN");
-            sendDataToServer("");
+            sendDataToServer(login + " " + password);
 
             //todo fix query
 
@@ -30,6 +30,11 @@ public class LoginController {
         } else {
             window.showMessageDialog("Fill the fields!", JOptionPane.ERROR_MESSAGE);
         }
+    }
+
+    public void registerUser(String login, String password) {
+        sendDataToServer("REGISTER");
+        sendDataToServer(login+" "+password);
     }
 
     public void attachView(LoginWindow window) {
