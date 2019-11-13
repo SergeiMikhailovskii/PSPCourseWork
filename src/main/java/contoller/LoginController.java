@@ -26,8 +26,10 @@ public class LoginController {
             String result = getDataFromServer();
             if (result.equalsIgnoreCase("EMPTY")) {
                 window.showRegisterDialog();
+            } else if (result.equalsIgnoreCase("BASE_USER")) {
+                window.showMessageDialog("You logged in as base user", JOptionPane.INFORMATION_MESSAGE);
             } else {
-                window.showMessageDialog("Success", JOptionPane.INFORMATION_MESSAGE);
+                window.showMessageDialog("You logged in as admin", JOptionPane.INFORMATION_MESSAGE);
             }
         } else {
             window.showMessageDialog("Fill the fields!", JOptionPane.ERROR_MESSAGE);
