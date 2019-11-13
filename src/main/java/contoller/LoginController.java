@@ -1,6 +1,7 @@
 package contoller;
 
 import view.LoginWindow;
+import view.MenuWindow;
 
 import javax.swing.*;
 import java.io.IOException;
@@ -28,8 +29,12 @@ public class LoginController {
                 window.showRegisterDialog();
             } else if (result.equalsIgnoreCase("BASE_USER")) {
                 window.showMessageDialog("You logged in as base user", JOptionPane.INFORMATION_MESSAGE);
+                new MenuWindow(0).setVisible(true);
+                window.setVisible(false);
             } else {
                 window.showMessageDialog("You logged in as admin", JOptionPane.INFORMATION_MESSAGE);
+                new MenuWindow(1).setVisible(true);
+                window.setVisible(false);
             }
         } else {
             window.showMessageDialog("Fill the fields!", JOptionPane.ERROR_MESSAGE);
