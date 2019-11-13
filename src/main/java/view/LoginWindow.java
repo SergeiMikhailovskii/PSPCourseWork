@@ -1,5 +1,6 @@
 package view;
 
+import client.ClientSocket;
 import contoller.LoginController;
 
 import javax.swing.*;
@@ -15,6 +16,7 @@ public class LoginWindow extends JFrame {
     private LoginController loginController = new LoginController();
 
     public static void main(String[] args) {
+        ClientSocket.initSocket();
         LoginWindow loginWindow = new LoginWindow();
         loginWindow.setVisible(true);
     }

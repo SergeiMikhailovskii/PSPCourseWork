@@ -1,5 +1,6 @@
 package contoller;
 
+import client.ClientSocket;
 import view.LoginWindow;
 import view.MenuWindow;
 
@@ -17,7 +18,7 @@ public class LoginController {
     private OutputStream os;
 
     public LoginController() {
-        connectToServer();
+        socket = ClientSocket.getSocket();
     }
 
     public void logInUser(String login, String password) {
