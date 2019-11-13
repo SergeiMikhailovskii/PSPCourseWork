@@ -42,6 +42,7 @@ public class LoginController {
         String result = getDataFromServer();
         if (result.equalsIgnoreCase("REGISTERED")) {
             window.showMessageDialog("Registered", JOptionPane.INFORMATION_MESSAGE);
+            logInUser(login, password);
         }
     }
 
