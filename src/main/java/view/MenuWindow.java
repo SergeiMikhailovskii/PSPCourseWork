@@ -1,6 +1,8 @@
 package view;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class MenuWindow extends JFrame {
     private JButton button1 = new JButton("Button1");
@@ -35,6 +37,10 @@ public class MenuWindow extends JFrame {
 
         getContentPane().add(showAllUsersBtn);
         showAllUsersBtn.setVisible(role == 1);
+        showAllUsersBtn.addActionListener(e -> {
+            this.setVisible(false);
+            new ShowUsersWindow().setVisible(true);
+        });
         springLayout.putConstraint(SpringLayout.HORIZONTAL_CENTER, showAllUsersBtn, 0, SpringLayout.HORIZONTAL_CENTER, getContentPane());
         springLayout.putConstraint(SpringLayout.NORTH, showAllUsersBtn, 20, SpringLayout.SOUTH, button3);
 

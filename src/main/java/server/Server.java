@@ -85,6 +85,8 @@ public class Server {
                                 String password = arr[1];
                                 registerUser(login, password);
                                 sendDataToClient(outputStream, "REGISTERED");
+                            } else if (clientAction.equalsIgnoreCase("GET_ALL_USERS")) {
+                                getAllUsers(outputStream);
                             }
                         }
                     } catch (IOException e) {
@@ -94,6 +96,19 @@ public class Server {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    private void getAllUsers(OutputStream outputStream) {
+        try {
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM user");
+            resultSet.last();
+            int rows = resultSet.getRow();
+            sendDataToClient(outputStream, String.valueOf(rows));
+            String res = resultSet.getString("login")+" "+resultSet.getString("password")+" "+resultSet.getInt("role");
+            sendDataToClient(outputStream, res);
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 

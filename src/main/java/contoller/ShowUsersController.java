@@ -3,9 +3,12 @@ package contoller;
 import client.ClientSocket;
 import view.ShowUsersWindow;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
+import java.nio.charset.StandardCharsets;
+import java.util.Vector;
 
 public class ShowUsersController {
     private ShowUsersWindow window;
@@ -13,7 +16,7 @@ public class ShowUsersController {
     private InputStream is;
     private OutputStream os;
 
-    public ShowUsersController(){
+    public ShowUsersController() {
         socket = ClientSocket.getSocket();
     }
 
@@ -21,4 +24,43 @@ public class ShowUsersController {
         this.window = window;
     }
 
+    public void getUsersFromDB() {
+        Vector<Vector> rowData = new Vector<>();
+        sendDataToServer("GET_ALL_USERS");
+        int rows = Integer.parseInt(getDataFromServer());
+        for (int i = 0; i < rows; i++) {
+            String row = getDataFromServer();
+            String[] arr = row.split(" ");
+            Vector<Object> object = new Vector<>();
+            object.add(arr[0]);
+            object.add(arr[1]);
+            object.add(arr[2]);
+            rowData.add(object);
+        }
+        window.onUsersLoaded(rowData);
+    }
+
+    private void sendDataToServer(String res) {
+        try {
+            os = socket.getOutputStream();
+            os.write(res.getBytes());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private String getDataFromServer() {
+        byte[] bytes = new byte[100];
+        String str = null;
+        try {
+            is = socket.getInputStream();
+            //noinspection ResultOfMethodCallIgnored
+            is.read(bytes);
+            str = new String(bytes, StandardCharsets.UTF_8);
+            str = str.trim();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return str;
+    }
 }

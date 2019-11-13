@@ -56,15 +56,6 @@ public class LoginController {
         this.window = window;
     }
 
-    private void connectToServer() {
-        try {
-            socket = new Socket("127.0.0.1", 1024);
-            System.out.println("Connected");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     private void sendDataToServer(String res) {
         try {
             os = socket.getOutputStream();
