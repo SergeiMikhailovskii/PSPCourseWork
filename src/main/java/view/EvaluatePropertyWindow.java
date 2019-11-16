@@ -6,7 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class EvaluatePropertyWindow extends JFrame {
-    private EvaluatePropertyController controller;
+    private EvaluatePropertyController controller = new EvaluatePropertyController();
 
     private JLabel addressLB = new JLabel("Address: ");
     private JTextField addressTF = new JTextField();
@@ -23,8 +23,13 @@ public class EvaluatePropertyWindow extends JFrame {
 
     EvaluatePropertyWindow() {
         super("Evaluate Property");
-        initWindow();
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
         controller.attachView(this);
+        initWindow();
+    }
+
+    public void onDataCalculated(int sum) {
+        totalLB.setText(totalLB.getText() + sum);
     }
 
     private void initWindow() {
@@ -36,7 +41,7 @@ public class EvaluatePropertyWindow extends JFrame {
         springLayout.putConstraint(SpringLayout.NORTH, addressLB, 20, SpringLayout.NORTH, getContentPane());
 
         getContentPane().add(addressTF);
-        addressTF.setPreferredSize(new Dimension(200,20));
+        addressTF.setPreferredSize(new Dimension(200, 20));
         springLayout.putConstraint(SpringLayout.WEST, addressTF, 20, SpringLayout.EAST, addressLB);
         springLayout.putConstraint(SpringLayout.NORTH, addressTF, 20, SpringLayout.NORTH, getContentPane());
 
@@ -45,7 +50,7 @@ public class EvaluatePropertyWindow extends JFrame {
         springLayout.putConstraint(SpringLayout.NORTH, squareLB, 20, SpringLayout.SOUTH, addressTF);
 
         getContentPane().add(squareTF);
-        squareTF.setPreferredSize(new Dimension(200,20));
+        squareTF.setPreferredSize(new Dimension(200, 20));
         springLayout.putConstraint(SpringLayout.WEST, squareTF, 20, SpringLayout.EAST, squareLB);
         springLayout.putConstraint(SpringLayout.NORTH, squareTF, 20, SpringLayout.SOUTH, addressTF);
 
@@ -54,7 +59,7 @@ public class EvaluatePropertyWindow extends JFrame {
         springLayout.putConstraint(SpringLayout.NORTH, distanceFromCenterLB, 20, SpringLayout.SOUTH, squareTF);
 
         getContentPane().add(distanceFromCenterTF);
-        distanceFromCenterTF.setPreferredSize(new Dimension(200,20));
+        distanceFromCenterTF.setPreferredSize(new Dimension(200, 20));
         springLayout.putConstraint(SpringLayout.WEST, distanceFromCenterTF, 20, SpringLayout.EAST, distanceFromCenterLB);
         springLayout.putConstraint(SpringLayout.NORTH, distanceFromCenterTF, 20, SpringLayout.SOUTH, squareTF);
 
@@ -63,7 +68,7 @@ public class EvaluatePropertyWindow extends JFrame {
         springLayout.putConstraint(SpringLayout.NORTH, buildYearLB, 20, SpringLayout.SOUTH, distanceFromCenterTF);
 
         getContentPane().add(buildYearTF);
-        buildYearTF.setPreferredSize(new Dimension(200,20));
+        buildYearTF.setPreferredSize(new Dimension(200, 20));
         springLayout.putConstraint(SpringLayout.WEST, buildYearTF, 20, SpringLayout.EAST, buildYearLB);
         springLayout.putConstraint(SpringLayout.NORTH, buildYearTF, 20, SpringLayout.SOUTH, distanceFromCenterTF);
 
@@ -72,11 +77,23 @@ public class EvaluatePropertyWindow extends JFrame {
         springLayout.putConstraint(SpringLayout.NORTH, repairDegreeLB, 20, SpringLayout.SOUTH, buildYearTF);
 
         getContentPane().add(repairDegreeTF);
-        repairDegreeTF.setPreferredSize(new Dimension(200,20));
+        repairDegreeTF.setPreferredSize(new Dimension(200, 20));
         springLayout.putConstraint(SpringLayout.WEST, repairDegreeTF, 20, SpringLayout.EAST, repairDegreeLB);
         springLayout.putConstraint(SpringLayout.NORTH, repairDegreeTF, 20, SpringLayout.SOUTH, buildYearTF);
 
         getContentPane().add(calculateBtn);
+        calculateBtn.addActionListener(e -> {
+            try {
+                String address = addressTF.getText();
+                int square = Integer.parseInt(squareTF.getText());
+                int distanceFromCenter = Integer.parseInt(distanceFromCenterTF.getText());
+                int buildYear = Integer.parseInt(buildYearTF.getText());
+                int repairDegree = Integer.parseInt(repairDegreeTF.getText());
+                controller.calculatePrice(address, square, distanceFromCenter, buildYear, repairDegree);
+            } catch (NullPointerException | NumberFormatException exc) {
+                JOptionPane.showMessageDialog(this, "Fill all fields correctly", "Error!", JOptionPane.ERROR_MESSAGE);
+            }
+        });
         springLayout.putConstraint(SpringLayout.HORIZONTAL_CENTER, calculateBtn, 0, SpringLayout.HORIZONTAL_CENTER, repairDegreeTF);
         springLayout.putConstraint(SpringLayout.NORTH, calculateBtn, 20, SpringLayout.SOUTH, repairDegreeTF);
 
@@ -86,5 +103,4 @@ public class EvaluatePropertyWindow extends JFrame {
 
         setSize(450, 350);
     }
-
 }

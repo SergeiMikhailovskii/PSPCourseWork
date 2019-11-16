@@ -23,6 +23,11 @@ public class EvaluatePropertyController {
         this.window = window;
     }
 
+    public void calculatePrice(String address, int square, int distanceFromCenter, int buildYear, int repairDegree) {
+        int sum = 0;
+        window.onDataCalculated(sum);
+    }
+
     private void sendDataToServer(String res) {
         try {
             os = socket.getOutputStream();
@@ -46,6 +51,5 @@ public class EvaluatePropertyController {
         }
         return str;
     }
-
 
 }
