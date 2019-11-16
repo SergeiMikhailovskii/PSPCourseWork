@@ -32,6 +32,10 @@ public class EvaluatePropertyWindow extends JFrame {
         totalLB.setText(totalLB.getText() + sum);
     }
 
+    public void onDataSaved() {
+        JOptionPane.showMessageDialog(this, "Info saved", "Saved!", JOptionPane.INFORMATION_MESSAGE);
+    }
+
     private void initWindow() {
         SpringLayout springLayout = new SpringLayout();
         getContentPane().setLayout(springLayout);

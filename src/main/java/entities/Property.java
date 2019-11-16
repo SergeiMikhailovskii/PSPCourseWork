@@ -19,6 +19,17 @@ public class Property {
         this.userID = userID;
     }
 
+    public Property(String data) {
+        String[] arr = data.split(" ");
+        address = arr[0];
+        square = Integer.parseInt(arr[1]);
+        price = Double.parseDouble(arr[2]);
+        distanceFromCenter = Integer.parseInt(arr[3]);
+        buildYear = Integer.parseInt(arr[4]);
+        repairDegree = Integer.parseInt(arr[5]);
+        userID = Integer.parseInt(arr[6]);
+    }
+
     public Property() {
     }
 

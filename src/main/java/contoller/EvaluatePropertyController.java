@@ -1,6 +1,7 @@
 package contoller;
 
 import client.ClientSocket;
+import entities.Property;
 import view.EvaluatePropertyWindow;
 
 import java.io.IOException;
@@ -25,7 +26,18 @@ public class EvaluatePropertyController {
 
     public void calculatePrice(String address, int square, int distanceFromCenter, int buildYear, int repairDegree) {
         int sum = 0;
-
+        new Thread(() -> {
+            // todo implement count price
+            // todo implement setting current user
+            // todo change distance, buildYear and repairDegree to real indexes from DB
+            Property property = new Property(address, square, 1000, 1, 1, 1, 1);
+            sendDataToServer("SAVE_PROPERTY");
+            sendDataToServer(property.toString());
+            String response = getDataFromServer();
+            if (response.equalsIgnoreCase("Inserted")) {
+                window.onDataSaved();
+            }
+        }).start();
         window.onDataCalculated(sum);
     }
 

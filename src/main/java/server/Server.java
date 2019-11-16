@@ -1,5 +1,7 @@
 package server;
 
+import entities.Property;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -87,6 +89,8 @@ public class Server {
                                 sendDataToClient(outputStream, "REGISTERED");
                             } else if (clientAction.equalsIgnoreCase("GET_ALL_USERS")) {
                                 getAllUsers(outputStream);
+                            } else if (clientAction.equalsIgnoreCase("SAVE_PROPERTY")) {
+                                insertProperty(outputStream, queryContent);
                             }
                         }
                     } catch (IOException e) {
@@ -108,10 +112,10 @@ public class Server {
             resultSet.first();
 
             //todo prettify this part of code
-            String res = resultSet.getString("login")+" "+resultSet.getString("password")+" "+resultSet.getInt("role");
+            String res = resultSet.getString("login") + " " + resultSet.getString("password") + " " + resultSet.getInt("role");
             sendDataToClient(outputStream, res);
             while (resultSet.next()) {
-                res = resultSet.getString("login")+" "+resultSet.getString("password")+" "+resultSet.getInt("role");
+                res = resultSet.getString("login") + " " + resultSet.getString("password") + " " + resultSet.getInt("role");
                 sendDataToClient(outputStream, res);
             }
         } catch (SQLException e) {
@@ -145,6 +149,20 @@ public class Server {
         try {
             statement.executeUpdate("INSERT INTO user (login, password, role) VALUE ('" + login + "', '" + password + "', 0)");
         } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void insertProperty(OutputStream outputStream, String queryContent) {
+        try {
+            Property property = new Property(queryContent);
+            statement.executeUpdate("INSERT INTO property " +
+                    "(address, square, price, distanceFromCenter, buildYear, repairDegree, userId)" +
+                    " VALUE ('" + property.getAddress() + "', " + property.getSquare() + ", "
+                    + property.getPrice() + ", " + property.getDistanceFromCenter() + ", "
+                    + property.getBuildYear() + ", " + property.getRepairDegree() + ", " + property.getUserID() + ")");
+            outputStream.write("Inserted".getBytes());
+        } catch (SQLException | IOException e) {
             e.printStackTrace();
         }
     }
