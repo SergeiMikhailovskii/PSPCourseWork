@@ -1,9 +1,12 @@
 package view;
 
+import contoller.EvaluatePropertyController;
+
 import javax.swing.*;
 import java.awt.*;
 
 public class EvaluatePropertyWindow extends JFrame {
+    private EvaluatePropertyController controller;
 
     private JLabel addressLB = new JLabel("Address: ");
     private JTextField addressTF = new JTextField();
@@ -21,7 +24,7 @@ public class EvaluatePropertyWindow extends JFrame {
     EvaluatePropertyWindow() {
         super("Evaluate Property");
         initWindow();
-
+        controller.attachView(this);
     }
 
     private void initWindow() {
