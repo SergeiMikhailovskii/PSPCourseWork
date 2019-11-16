@@ -3,7 +3,7 @@ package view;
 import javax.swing.*;
 
 public class MenuWindow extends JFrame {
-    private JButton button1 = new JButton("Button1");
+    private JButton evaluatePropertyBtn = new JButton("Evaluate property");
     private JButton button2 = new JButton("Button2");
     private JButton button3 = new JButton("Button3");
     private JButton showAllUsersBtn = new JButton("Show all users");
@@ -21,13 +21,17 @@ public class MenuWindow extends JFrame {
         SpringLayout springLayout = new SpringLayout();
         getContentPane().setLayout(springLayout);
 
-        getContentPane().add(button1);
-        springLayout.putConstraint(SpringLayout.HORIZONTAL_CENTER, button1, 0, SpringLayout.HORIZONTAL_CENTER, getContentPane());
-        springLayout.putConstraint(SpringLayout.NORTH, button1, 20, SpringLayout.NORTH, getContentPane());
+        getContentPane().add(evaluatePropertyBtn);
+        evaluatePropertyBtn.addActionListener(e-> {
+            new EvaluatePropertyWindow().setVisible(true);
+            this.setVisible(false);
+        });
+        springLayout.putConstraint(SpringLayout.HORIZONTAL_CENTER, evaluatePropertyBtn, 0, SpringLayout.HORIZONTAL_CENTER, getContentPane());
+        springLayout.putConstraint(SpringLayout.NORTH, evaluatePropertyBtn, 20, SpringLayout.NORTH, getContentPane());
 
         getContentPane().add(button2);
         springLayout.putConstraint(SpringLayout.HORIZONTAL_CENTER, button2, 0, SpringLayout.HORIZONTAL_CENTER, getContentPane());
-        springLayout.putConstraint(SpringLayout.NORTH, button2, 20, SpringLayout.SOUTH, button1);
+        springLayout.putConstraint(SpringLayout.NORTH, button2, 20, SpringLayout.SOUTH, evaluatePropertyBtn);
 
         getContentPane().add(button3);
         springLayout.putConstraint(SpringLayout.HORIZONTAL_CENTER, button3, 0, SpringLayout.HORIZONTAL_CENTER, getContentPane());
