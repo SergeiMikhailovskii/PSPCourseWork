@@ -27,7 +27,7 @@ public class ShowUsersWindow extends JFrame {
         SpringLayout springLayout = new SpringLayout();
         getContentPane().setLayout(springLayout);
 
-        getContentPane().add(table);
+        getContentPane().add(new JScrollPane(table));
         springLayout.putConstraint(SpringLayout.HORIZONTAL_CENTER, table, 0, SpringLayout.HORIZONTAL_CENTER, getContentPane());
         springLayout.putConstraint(SpringLayout.NORTH, table, 20, SpringLayout.NORTH, getContentPane());
 
