@@ -1,6 +1,8 @@
 package contoller;
 
+import client.ClientSocket;
 import view.LoginWindow;
+import view.MenuWindow;
 
 import javax.swing.*;
 import java.io.IOException;
@@ -16,7 +18,7 @@ public class LoginController {
     private OutputStream os;
 
     public LoginController() {
-        connectToServer();
+        socket = ClientSocket.getSocket();
     }
 
     public void logInUser(String login, String password) {
@@ -28,8 +30,12 @@ public class LoginController {
                 window.showRegisterDialog();
             } else if (result.equalsIgnoreCase("BASE_USER")) {
                 window.showMessageDialog("You logged in as base user", JOptionPane.INFORMATION_MESSAGE);
+                new MenuWindow(0).setVisible(true);
+                window.setVisible(false);
             } else {
                 window.showMessageDialog("You logged in as admin", JOptionPane.INFORMATION_MESSAGE);
+                new MenuWindow(1).setVisible(true);
+                window.setVisible(false);
             }
         } else {
             window.showMessageDialog("Fill the fields!", JOptionPane.ERROR_MESSAGE);
@@ -48,15 +54,6 @@ public class LoginController {
 
     public void attachView(LoginWindow window) {
         this.window = window;
-    }
-
-    private void connectToServer() {
-        try {
-            socket = new Socket("127.0.0.1", 1024);
-            System.out.println("Connected");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     private void sendDataToServer(String res) {
