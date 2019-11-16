@@ -88,6 +88,7 @@ public class Server {
                             } else if (clientAction.equalsIgnoreCase("GET_ALL_USERS")) {
                                 getAllUsers(outputStream);
                             }
+                            System.out.println("Waiting for new action");
                         }
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -105,8 +106,15 @@ public class Server {
             resultSet.last();
             int rows = resultSet.getRow();
             sendDataToClient(outputStream, String.valueOf(rows));
+            resultSet.first();
+
+            //todo prettify this part of code
             String res = resultSet.getString("login")+" "+resultSet.getString("password")+" "+resultSet.getInt("role");
             sendDataToClient(outputStream, res);
+            while (resultSet.next()) {
+                res = resultSet.getString("login")+" "+resultSet.getString("password")+" "+resultSet.getInt("role");
+                sendDataToClient(outputStream, res);
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
