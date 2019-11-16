@@ -3,11 +3,13 @@ package view;
 import contoller.ShowUsersController;
 
 import javax.swing.*;
+import java.awt.*;
 import java.util.List;
 import java.util.Vector;
 
 public class ShowUsersWindow extends JFrame {
     private JTable table = new JTable();
+    private JButton backBtn = new JButton("Back");
     private Vector<String> columnNames = new Vector<>();
 
     private ShowUsersController controller = new ShowUsersController();
@@ -27,7 +29,12 @@ public class ShowUsersWindow extends JFrame {
 
         getContentPane().add(table);
         springLayout.putConstraint(SpringLayout.HORIZONTAL_CENTER, table, 0, SpringLayout.HORIZONTAL_CENTER, getContentPane());
-        springLayout.putConstraint(SpringLayout.VERTICAL_CENTER, table, 0, SpringLayout.VERTICAL_CENTER, getContentPane());
+        springLayout.putConstraint(SpringLayout.NORTH, table, 20, SpringLayout.NORTH, getContentPane());
+
+        getContentPane().add(backBtn);
+        backBtn.addActionListener(e -> controller.navigateBack());
+        springLayout.putConstraint(SpringLayout.HORIZONTAL_CENTER, backBtn, 0, SpringLayout.HORIZONTAL_CENTER, getContentPane());
+        springLayout.putConstraint(SpringLayout.NORTH, backBtn, 20, SpringLayout.SOUTH, table);
 
         setSize(300, 300);
     }

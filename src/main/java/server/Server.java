@@ -88,7 +88,6 @@ public class Server {
                             } else if (clientAction.equalsIgnoreCase("GET_ALL_USERS")) {
                                 getAllUsers(outputStream);
                             }
-                            System.out.println("Waiting for new action");
                         }
                     } catch (IOException e) {
                         e.printStackTrace();

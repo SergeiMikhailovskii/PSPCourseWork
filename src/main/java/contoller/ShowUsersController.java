@@ -1,6 +1,7 @@
 package contoller;
 
 import client.ClientSocket;
+import view.MenuWindow;
 import view.ShowUsersWindow;
 
 import java.io.IOException;
@@ -39,6 +40,11 @@ public class ShowUsersController {
             rowData.add(object);
         }
         window.onUsersLoaded(rowData);
+    }
+
+    public void navigateBack() {
+        new MenuWindow(1).setVisible(true);
+        window.setVisible(false);
     }
 
     private void sendDataToServer(String res) {
