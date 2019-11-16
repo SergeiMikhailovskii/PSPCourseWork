@@ -25,6 +25,7 @@ public class EvaluatePropertyController {
 
     public void calculatePrice(String address, int square, int distanceFromCenter, int buildYear, int repairDegree) {
         int sum = 0;
+
         window.onDataCalculated(sum);
     }
 
