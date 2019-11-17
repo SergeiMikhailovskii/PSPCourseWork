@@ -26,29 +26,31 @@ public class EvaluatePropertyController {
 
     public void calculatePrice(String address, int square, int distanceFromCenter, int buildYear, int repairDegree) {
         int sum = 0;
-        new Thread(() -> {
-            // todo implement count price
-            // todo implement setting current user
-            // todo change distance, buildYear and repairDegree to real indexes from DB
-            sendDataToServer("GET_DISTANCE_FROM_CENTER");
-            sendDataToServer(String.valueOf(distanceFromCenter));
-            double distanceCoefficient = Double.parseDouble(getDataFromServer());
+        // todo implement count price
+        // todo implement setting current user
+        // todo change distance, buildYear and repairDegree to real indexes from DB
+        sendDataToServer("GET_DISTANCE_FROM_CENTER");
+        sendDataToServer(String.valueOf(distanceFromCenter));
+        double distanceCoefficient = Double.parseDouble(getDataFromServer());
 
-            sendDataToServer("GET_BUILD_YEAR");
-            sendDataToServer(String.valueOf(buildYear));
-            double yearCoefficient = Double.parseDouble(getDataFromServer());
+        sendDataToServer("GET_BUILD_YEAR");
+        sendDataToServer(String.valueOf(buildYear));
+        double yearCoefficient = Double.parseDouble(getDataFromServer());
 
-            Property property = new Property(address, square, 1000, distanceCoefficient, yearCoefficient, 1, 1);
+        sendDataToServer("GET_REPAIR_DEGREE");
+        sendDataToServer(String.valueOf(repairDegree));
+        double repairDegreeCoefficient = Double.parseDouble(getDataFromServer());
 
-            sendDataToServer("SAVE_PROPERTY");
-            sendDataToServer(property.toString());
-            String response = getDataFromServer();
+        Property property = new Property(address, square, 1000, distanceCoefficient, yearCoefficient, repairDegreeCoefficient, 1);
 
-            if (response.equalsIgnoreCase("Inserted")) {
-                window.onDataSaved();
-            }
-        }).start();
-        window.onDataCalculated(sum);
+        sendDataToServer("SAVE_PROPERTY");
+        sendDataToServer(property.toString());
+        String response = getDataFromServer();
+
+        if (response.equalsIgnoreCase("Inserted")) {
+            window.onDataCalculated(sum);
+            window.onDataSaved();
+        }
     }
 
     private void sendDataToServer(String res) {

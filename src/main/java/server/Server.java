@@ -95,6 +95,8 @@ public class Server {
                                 getDistanceCoefficient(outputStream, queryContent);
                             } else if (clientAction.equalsIgnoreCase("GET_BUILD_YEAR")) {
                                 getBuildYearCoefficient(outputStream, queryContent);
+                            } else if (clientAction.equalsIgnoreCase("GET_REPAIR_DEGREE")) {
+                                getRepairDegreeCoefficient(outputStream, queryContent);
                             }
                         }
                     } catch (IOException e) {
@@ -107,13 +109,28 @@ public class Server {
         }
     }
 
+    private void getRepairDegreeCoefficient(OutputStream outputStream, String queryContent) {
+        int repairDegree = Integer.parseInt(queryContent);
+        try {
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM repairdegree WHERE bottomBorder<=" + repairDegree + " AND topBorder >=" + repairDegree);
+            if (resultSet.next()) {
+                double res = resultSet.getDouble("repairCoefficient");
+                sendDataToClient(outputStream, String.valueOf(res));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
     private void getBuildYearCoefficient(OutputStream outputStream, String queryContent) {
         int year = Integer.parseInt(queryContent);
-        ResultSet resultSet = null;
         try {
-            resultSet = statement.executeQuery("SELECT * FROM buildyear WHERE bottomBorder<=" + year + " AND topBorder >=" + year);
-            double res = resultSet.getDouble("yearCoefficient");
-            sendDataToClient(outputStream, String.valueOf(res));
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM buildyear WHERE bottomBorder<=" + year + " AND topBorder >=" + year);
+            if (resultSet.next()) {
+                double res = resultSet.getDouble("yearCoefficient");
+                sendDataToClient(outputStream, String.valueOf(res));
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -123,8 +140,10 @@ public class Server {
         int distance = Integer.parseInt(queryContent);
         try {
             ResultSet resultSet = statement.executeQuery("SELECT * FROM distancefromcenter WHERE bottomBorder<=" + distance + " AND topBorder >=" + distance);
-            double res = resultSet.getDouble("distanceCoefficient");
-            sendDataToClient(outputStream, String.valueOf(res));
+            if (resultSet.next()) {
+                double res = resultSet.getDouble("distanceCoefficient");
+                sendDataToClient(outputStream, String.valueOf(res));
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -182,9 +201,10 @@ public class Server {
 
     private void insertProperty(OutputStream outputStream, String queryContent) {
         try {
+            System.out.println(queryContent);
             Property property = new Property(queryContent);
             statement.executeUpdate("INSERT INTO property " +
-                    "(address, square, price, distanceFromCenter, buildYear, repairDegree, userId)" +
+                    "(address, square, price, distanceFromCenterID, buildYearID, repairDegreeID, userId)" +
                     " VALUE ('" + property.getAddress() + "', " + property.getSquare() + ", "
                     + property.getPrice() + ", " + property.getDistanceFromCenterCoefficient() + ", "
                     + property.getBuildYearCoefficient() + ", " + property.getRepairDegreeCoefficient() + ", " + property.getUserID() + ")");

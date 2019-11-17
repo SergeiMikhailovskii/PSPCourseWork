@@ -25,13 +25,10 @@ public class Property {
         address = arr[0];
         square = Integer.parseInt(arr[1]);
         price = Double.parseDouble(arr[2]);
-        distanceFromCenterCoefficient = Integer.parseInt(arr[3]);
-        buildYearCoefficient = Integer.parseInt(arr[4]);
-        repairDegreeCoefficient = Integer.parseInt(arr[5]);
+        distanceFromCenterCoefficient = Double.parseDouble(arr[3]);
+        buildYearCoefficient = Double.parseDouble(arr[4]);
+        repairDegreeCoefficient = Double.parseDouble(arr[5]);
         userID = Integer.parseInt(arr[6]);
-    }
-
-    public Property() {
     }
 
     public String getAddress() {
