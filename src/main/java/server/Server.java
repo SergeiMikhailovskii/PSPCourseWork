@@ -1,5 +1,7 @@
 package server;
 
+import entities.Property;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -87,6 +89,14 @@ public class Server {
                                 sendDataToClient(outputStream, "REGISTERED");
                             } else if (clientAction.equalsIgnoreCase("GET_ALL_USERS")) {
                                 getAllUsers(outputStream);
+                            } else if (clientAction.equalsIgnoreCase("SAVE_PROPERTY")) {
+                                insertProperty(outputStream, queryContent);
+                            } else if (clientAction.equalsIgnoreCase("GET_DISTANCE_FROM_CENTER")) {
+                                getDistanceCoefficient(outputStream, queryContent);
+                            } else if (clientAction.equalsIgnoreCase("GET_BUILD_YEAR")) {
+                                getBuildYearCoefficient(outputStream, queryContent);
+                            } else if (clientAction.equalsIgnoreCase("GET_REPAIR_DEGREE")) {
+                                getRepairDegreeCoefficient(outputStream, queryContent);
                             }
                         }
                     } catch (IOException e) {
@@ -99,6 +109,52 @@ public class Server {
         }
     }
 
+    private void getRepairDegreeCoefficient(OutputStream outputStream, String queryContent) {
+        int repairDegree = Integer.parseInt(queryContent);
+        try {
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM repairdegree WHERE bottomBorder<=" + repairDegree + " AND topBorder >=" + repairDegree);
+            if (resultSet.next()) {
+                double res = resultSet.getDouble("repairCoefficient");
+                sendDataToClient(outputStream, String.valueOf(res));
+                res = resultSet.getInt("id");
+                sendDataToClient(outputStream, String.valueOf(res));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private void getBuildYearCoefficient(OutputStream outputStream, String queryContent) {
+        int year = Integer.parseInt(queryContent);
+        try {
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM buildyear WHERE bottomBorder<=" + year + " AND topBorder >=" + year);
+            if (resultSet.next()) {
+                double res = resultSet.getDouble("yearCoefficient");
+                sendDataToClient(outputStream, String.valueOf(res));
+                res = resultSet.getInt("id");
+                sendDataToClient(outputStream, String.valueOf(res));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void getDistanceCoefficient(OutputStream outputStream, String queryContent) {
+        int distance = Integer.parseInt(queryContent);
+        try {
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM distancefromcenter WHERE bottomBorder<=" + distance + " AND topBorder >=" + distance);
+            if (resultSet.next()) {
+                double res = resultSet.getDouble("distanceCoefficient");
+                sendDataToClient(outputStream, String.valueOf(res));
+                res = resultSet.getInt("id");
+                sendDataToClient(outputStream, String.valueOf(res));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     private void getAllUsers(OutputStream outputStream) {
         try {
             ResultSet resultSet = statement.executeQuery("SELECT * FROM user");
@@ -108,10 +164,10 @@ public class Server {
             resultSet.first();
 
             //todo prettify this part of code
-            String res = resultSet.getString("login")+" "+resultSet.getString("password")+" "+resultSet.getInt("role");
+            String res = resultSet.getString("login") + " " + resultSet.getString("password") + " " + resultSet.getInt("role");
             sendDataToClient(outputStream, res);
             while (resultSet.next()) {
-                res = resultSet.getString("login")+" "+resultSet.getString("password")+" "+resultSet.getInt("role");
+                res = resultSet.getString("login") + " " + resultSet.getString("password") + " " + resultSet.getInt("role");
                 sendDataToClient(outputStream, res);
             }
         } catch (SQLException e) {
@@ -145,6 +201,21 @@ public class Server {
         try {
             statement.executeUpdate("INSERT INTO user (login, password, role) VALUE ('" + login + "', '" + password + "', 0)");
         } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void insertProperty(OutputStream outputStream, String queryContent) {
+        try {
+            System.out.println(queryContent);
+            Property property = new Property(queryContent);
+            statement.executeUpdate("INSERT INTO property " +
+                    "(address, square, price, distanceFromCenterID, buildYearID, repairDegreeID, userId)" +
+                    " VALUE ('" + property.getAddress() + "', " + property.getSquare() + ", "
+                    + property.getPrice() + ", " + property.getDistanceFromCenterCoefficient() + ", "
+                    + property.getBuildYearCoefficient() + ", " + property.getRepairDegreeCoefficient() + ", " + property.getUserID() + ")");
+            outputStream.write("Inserted".getBytes());
+        } catch (SQLException | IOException e) {
             e.printStackTrace();
         }
     }
