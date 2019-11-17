@@ -15,6 +15,7 @@ public class EvaluatePropertyController {
     private Socket socket;
     private InputStream is;
     private OutputStream os;
+    private int id;
 
     public EvaluatePropertyController() {
         this.socket = ClientSocket.getSocket();
@@ -22,6 +23,10 @@ public class EvaluatePropertyController {
 
     public void attachView(EvaluatePropertyWindow window) {
         this.window = window;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public void calculatePrice(String address, int square, int distanceFromCenter, int buildYear, int repairDegree) {
@@ -46,7 +51,7 @@ public class EvaluatePropertyController {
 
         sum = 1500 * square * distanceCoefficient * yearCoefficient * repairDegreeCoefficient;
 
-        Property property = new Property(address, square, sum, distanceID, yearID, repairID, 1);
+        Property property = new Property(address, square, sum, distanceID, yearID, repairID, id);
 
         sendDataToServer("SAVE_PROPERTY");
         sendDataToServer(property.toString());
