@@ -30,10 +30,20 @@ public class EvaluatePropertyController {
             // todo implement count price
             // todo implement setting current user
             // todo change distance, buildYear and repairDegree to real indexes from DB
-            Property property = new Property(address, square, 1000, 1, 1, 1, 1);
+            sendDataToServer("GET_DISTANCE_FROM_CENTER");
+            sendDataToServer(String.valueOf(distanceFromCenter));
+            double distanceCoefficient = Double.parseDouble(getDataFromServer());
+
+            sendDataToServer("GET_BUILD_YEAR");
+            sendDataToServer(String.valueOf(buildYear));
+            double yearCoefficient = Double.parseDouble(getDataFromServer());
+
+            Property property = new Property(address, square, 1000, distanceCoefficient, yearCoefficient, 1, 1);
+
             sendDataToServer("SAVE_PROPERTY");
             sendDataToServer(property.toString());
             String response = getDataFromServer();
+
             if (response.equalsIgnoreCase("Inserted")) {
                 window.onDataSaved();
             }

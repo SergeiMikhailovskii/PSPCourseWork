@@ -4,18 +4,19 @@ public class Property {
     private String address;
     private int square;
     private double price;
-    private int distanceFromCenter;
-    private int buildYear;
-    private int repairDegree;
+    private double distanceFromCenterCoefficient;
+    private double buildYearCoefficient;
+    private double repairDegreeCoefficient;
     private int userID;
 
-    public Property(String address, int square, double price, int distanceFromCenter, int buildYear, int repairDegree, int userID) {
+    public Property(String address, int square, double price, double distanceFromCenterCoefficient,
+                    double buildYearCoefficient, double repairDegreeCoefficient, int userID) {
         this.address = address;
         this.square = square;
         this.price = price;
-        this.distanceFromCenter = distanceFromCenter;
-        this.buildYear = buildYear;
-        this.repairDegree = repairDegree;
+        this.distanceFromCenterCoefficient = distanceFromCenterCoefficient;
+        this.buildYearCoefficient = buildYearCoefficient;
+        this.repairDegreeCoefficient = repairDegreeCoefficient;
         this.userID = userID;
     }
 
@@ -24,9 +25,9 @@ public class Property {
         address = arr[0];
         square = Integer.parseInt(arr[1]);
         price = Double.parseDouble(arr[2]);
-        distanceFromCenter = Integer.parseInt(arr[3]);
-        buildYear = Integer.parseInt(arr[4]);
-        repairDegree = Integer.parseInt(arr[5]);
+        distanceFromCenterCoefficient = Integer.parseInt(arr[3]);
+        buildYearCoefficient = Integer.parseInt(arr[4]);
+        repairDegreeCoefficient = Integer.parseInt(arr[5]);
         userID = Integer.parseInt(arr[6]);
     }
 
@@ -57,28 +58,28 @@ public class Property {
         this.price = price;
     }
 
-    public int getDistanceFromCenter() {
-        return distanceFromCenter;
+    public double getDistanceFromCenterCoefficient() {
+        return distanceFromCenterCoefficient;
     }
 
-    public void setDistanceFromCenter(int distanceFromCenter) {
-        this.distanceFromCenter = distanceFromCenter;
+    public void setDistanceFromCenterCoefficient(int distanceFromCenterCoefficient) {
+        this.distanceFromCenterCoefficient = distanceFromCenterCoefficient;
     }
 
-    public int getBuildYear() {
-        return buildYear;
+    public double getBuildYearCoefficient() {
+        return buildYearCoefficient;
     }
 
-    public void setBuildYear(int buildYear) {
-        this.buildYear = buildYear;
+    public void setBuildYearCoefficient(int buildYearCoefficient) {
+        this.buildYearCoefficient = buildYearCoefficient;
     }
 
-    public int getRepairDegree() {
-        return repairDegree;
+    public double getRepairDegreeCoefficient() {
+        return repairDegreeCoefficient;
     }
 
-    public void setRepairDegree(int repairDegree) {
-        this.repairDegree = repairDegree;
+    public void setRepairDegreeCoefficient(int repairDegreeCoefficient) {
+        this.repairDegreeCoefficient = repairDegreeCoefficient;
     }
 
     public int getUserID() {
@@ -91,6 +92,6 @@ public class Property {
 
     @Override
     public String toString() {
-        return address + " " + square + " " + price + " " + distanceFromCenter + " " + buildYear + " " + repairDegree + " " + userID;
+        return address + " " + square + " " + price + " " + distanceFromCenterCoefficient + " " + buildYearCoefficient + " " + repairDegreeCoefficient + " " + userID;
     }
 }

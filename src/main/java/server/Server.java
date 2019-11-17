@@ -91,6 +91,10 @@ public class Server {
                                 getAllUsers(outputStream);
                             } else if (clientAction.equalsIgnoreCase("SAVE_PROPERTY")) {
                                 insertProperty(outputStream, queryContent);
+                            } else if (clientAction.equalsIgnoreCase("GET_DISTANCE_FROM_CENTER")) {
+                                getDistanceCoefficient(outputStream, queryContent);
+                            } else if (clientAction.equalsIgnoreCase("GET_BUILD_YEAR")) {
+                                getBuildYearCoefficient(outputStream, queryContent);
                             }
                         }
                     } catch (IOException e) {
@@ -100,6 +104,29 @@ public class Server {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    private void getBuildYearCoefficient(OutputStream outputStream, String queryContent) {
+        int year = Integer.parseInt(queryContent);
+        ResultSet resultSet = null;
+        try {
+            resultSet = statement.executeQuery("SELECT * FROM buildyear WHERE bottomBorder<=" + year + " AND topBorder >=" + year);
+            double res = resultSet.getDouble("yearCoefficient");
+            sendDataToClient(outputStream, String.valueOf(res));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void getDistanceCoefficient(OutputStream outputStream, String queryContent) {
+        int distance = Integer.parseInt(queryContent);
+        try {
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM distancefromcenter WHERE bottomBorder<=" + distance + " AND topBorder >=" + distance);
+            double res = resultSet.getDouble("distanceCoefficient");
+            sendDataToClient(outputStream, String.valueOf(res));
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
@@ -159,8 +186,8 @@ public class Server {
             statement.executeUpdate("INSERT INTO property " +
                     "(address, square, price, distanceFromCenter, buildYear, repairDegree, userId)" +
                     " VALUE ('" + property.getAddress() + "', " + property.getSquare() + ", "
-                    + property.getPrice() + ", " + property.getDistanceFromCenter() + ", "
-                    + property.getBuildYear() + ", " + property.getRepairDegree() + ", " + property.getUserID() + ")");
+                    + property.getPrice() + ", " + property.getDistanceFromCenterCoefficient() + ", "
+                    + property.getBuildYearCoefficient() + ", " + property.getRepairDegreeCoefficient() + ", " + property.getUserID() + ")");
             outputStream.write("Inserted".getBytes());
         } catch (SQLException | IOException e) {
             e.printStackTrace();
