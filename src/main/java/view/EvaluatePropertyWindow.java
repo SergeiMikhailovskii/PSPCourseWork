@@ -28,6 +28,7 @@ public class EvaluatePropertyWindow extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.id = id;
         controller.attachView(this);
+        controller.setId(id);
         initWindow();
     }
 

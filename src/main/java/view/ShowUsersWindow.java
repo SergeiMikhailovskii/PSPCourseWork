@@ -20,6 +20,7 @@ public class ShowUsersWindow extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.id = id;
         controller.attachView(this);
+        controller.setId(id);
         columnNames.addAll(List.of("Login", "Password", "Role"));
         getUsersFromDB();
         initWindow();
