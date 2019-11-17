@@ -197,20 +197,6 @@ public class Server {
         }
     }
 
-    private int isUserExists(String login, String password) {
-        int role = -1;
-        try {
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM user WHERE login='" + login + "' AND password='" + password + "'");
-            resultSet.last();
-            if (resultSet.getRow() != 0) {
-                role = resultSet.getInt("role");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return role;
-    }
-
     private void registerUser(String login, String password) {
         try {
             statement.executeUpdate("INSERT INTO user (login, password, role) VALUE ('" + login + "', '" + password + "', 0)");
