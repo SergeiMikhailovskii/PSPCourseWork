@@ -25,23 +25,28 @@ public class EvaluatePropertyController {
     }
 
     public void calculatePrice(String address, int square, int distanceFromCenter, int buildYear, int repairDegree) {
-        int sum = 0;
+        double sum;
         // todo implement count price
         // todo implement setting current user
         // todo change distance, buildYear and repairDegree to real indexes from DB
         sendDataToServer("GET_DISTANCE_FROM_CENTER");
         sendDataToServer(String.valueOf(distanceFromCenter));
         double distanceCoefficient = Double.parseDouble(getDataFromServer());
+        int distanceID = (int) Double.parseDouble(getDataFromServer());
 
         sendDataToServer("GET_BUILD_YEAR");
         sendDataToServer(String.valueOf(buildYear));
         double yearCoefficient = Double.parseDouble(getDataFromServer());
+        int yearID = (int) Double.parseDouble(getDataFromServer());
 
         sendDataToServer("GET_REPAIR_DEGREE");
         sendDataToServer(String.valueOf(repairDegree));
         double repairDegreeCoefficient = Double.parseDouble(getDataFromServer());
+        int repairID = (int) Double.parseDouble(getDataFromServer());
 
-        Property property = new Property(address, square, 1000, distanceCoefficient, yearCoefficient, repairDegreeCoefficient, 1);
+        sum = 1500 * square * repairDegreeCoefficient * yearCoefficient * repairDegreeCoefficient;
+
+        Property property = new Property(address, square, sum, distanceID, yearID, repairID, 1);
 
         sendDataToServer("SAVE_PROPERTY");
         sendDataToServer(property.toString());

@@ -116,6 +116,8 @@ public class Server {
             if (resultSet.next()) {
                 double res = resultSet.getDouble("repairCoefficient");
                 sendDataToClient(outputStream, String.valueOf(res));
+                res = resultSet.getInt("id");
+                sendDataToClient(outputStream, String.valueOf(res));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -130,6 +132,8 @@ public class Server {
             if (resultSet.next()) {
                 double res = resultSet.getDouble("yearCoefficient");
                 sendDataToClient(outputStream, String.valueOf(res));
+                res = resultSet.getInt("id");
+                sendDataToClient(outputStream, String.valueOf(res));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -142,6 +146,8 @@ public class Server {
             ResultSet resultSet = statement.executeQuery("SELECT * FROM distancefromcenter WHERE bottomBorder<=" + distance + " AND topBorder >=" + distance);
             if (resultSet.next()) {
                 double res = resultSet.getDouble("distanceCoefficient");
+                sendDataToClient(outputStream, String.valueOf(res));
+                res = resultSet.getInt("id");
                 sendDataToClient(outputStream, String.valueOf(res));
             }
         } catch (SQLException e) {

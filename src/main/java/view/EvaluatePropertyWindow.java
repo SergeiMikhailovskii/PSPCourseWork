@@ -28,8 +28,8 @@ public class EvaluatePropertyWindow extends JFrame {
         initWindow();
     }
 
-    public void onDataCalculated(int sum) {
-        totalLB.setText(totalLB.getText() + sum);
+    public void onDataCalculated(double sum) {
+        totalLB.setText(totalLB.getText() + (int) sum);
     }
 
     public void onDataSaved() {
@@ -96,6 +96,7 @@ public class EvaluatePropertyWindow extends JFrame {
                 controller.calculatePrice(address, square, distanceFromCenter, buildYear, repairDegree);
             } catch (NullPointerException | NumberFormatException exc) {
                 JOptionPane.showMessageDialog(this, "Fill all fields correctly", "Error!", JOptionPane.ERROR_MESSAGE);
+                exc.printStackTrace();
             }
         });
         springLayout.putConstraint(SpringLayout.HORIZONTAL_CENTER, calculateBtn, 0, SpringLayout.HORIZONTAL_CENTER, repairDegreeTF);
