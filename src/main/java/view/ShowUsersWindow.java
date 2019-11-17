@@ -3,7 +3,6 @@ package view;
 import contoller.ShowUsersController;
 
 import javax.swing.*;
-import java.awt.*;
 import java.util.List;
 import java.util.Vector;
 

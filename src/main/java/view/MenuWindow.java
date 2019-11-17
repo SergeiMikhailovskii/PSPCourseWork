@@ -24,7 +24,7 @@ public class MenuWindow extends JFrame {
         getContentPane().setLayout(springLayout);
 
         getContentPane().add(evaluatePropertyBtn);
-        evaluatePropertyBtn.addActionListener(e-> {
+        evaluatePropertyBtn.addActionListener(e -> {
             new EvaluatePropertyWindow(id).setVisible(true);
             this.setVisible(false);
         });
