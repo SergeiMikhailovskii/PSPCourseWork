@@ -44,7 +44,7 @@ public class EvaluatePropertyController {
         double repairDegreeCoefficient = Double.parseDouble(getDataFromServer());
         int repairID = (int) Double.parseDouble(getDataFromServer());
 
-        sum = 1500 * square * repairDegreeCoefficient * yearCoefficient * repairDegreeCoefficient;
+        sum = 1500 * square * distanceCoefficient * yearCoefficient * repairDegreeCoefficient;
 
         Property property = new Property(address, square, sum, distanceID, yearID, repairID, 1);
 
