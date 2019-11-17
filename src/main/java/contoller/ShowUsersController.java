@@ -17,12 +17,18 @@ public class ShowUsersController {
     private InputStream is;
     private OutputStream os;
 
+    private int id;
+
     public ShowUsersController() {
         socket = ClientSocket.getSocket();
     }
 
     public void attachView(ShowUsersWindow window) {
         this.window = window;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public void getUsersFromDB() {
@@ -43,7 +49,7 @@ public class ShowUsersController {
     }
 
     public void navigateBack() {
-        new MenuWindow(1).setVisible(true);
+        new MenuWindow(1, id).setVisible(true);
         window.setVisible(false);
     }
 

@@ -70,17 +70,7 @@ public class Server {
                             if (clientAction.equalsIgnoreCase("END")) {
                                 flag = false;
                             } else if (clientAction.equalsIgnoreCase("LOGIN")) {
-                                String[] arr = queryContent.split(" ");
-                                String login = arr[0];
-                                String password = arr[1];
-                                int result = isUserExists(login, password);
-                                if (result == 1) {
-                                    sendDataToClient(outputStream, "ADMIN");
-                                } else if (result == 0) {
-                                    sendDataToClient(outputStream, "BASE_USER");
-                                } else {
-                                    sendDataToClient(outputStream, "EMPTY");
-                                }
+                                logInUser(outputStream, queryContent);
                             } else if (clientAction.equalsIgnoreCase("REGISTER")) {
                                 String[] arr = queryContent.split(" ");
                                 String login = arr[0];
@@ -107,6 +97,38 @@ public class Server {
                 e.printStackTrace();
             }
         }
+    }
+
+    private void logInUser(OutputStream outputStream, String queryContent) {
+        String[] arr = queryContent.split(" ");
+        String login = arr[0];
+        String password = arr[1];
+        int role;
+        int id;
+        try {
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM user WHERE login='" + login + "' AND password='" + password + "'");
+            resultSet.last();
+            if (resultSet.getRow() != 0) {
+                role = resultSet.getInt("role");
+                id = resultSet.getInt("id");
+            } else {
+                role = -1;
+                id = -1;
+            }
+            sendDataToClient(outputStream, String.valueOf(role));
+            sendDataToClient(outputStream, String.valueOf(id));
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        /*int result = isUserExists(login, password);
+        if (result == 1) {
+            sendDataToClient(outputStream, "ADMIN");
+        } else if (result == 0) {
+            sendDataToClient(outputStream, "BASE_USER");
+        } else {
+            sendDataToClient(outputStream, "EMPTY");
+        }*/
     }
 
     private void getRepairDegreeCoefficient(OutputStream outputStream, String queryContent) {

@@ -26,15 +26,16 @@ public class LoginController {
             sendDataToServer("LOGIN");
             sendDataToServer(login + " " + password);
             String result = getDataFromServer();
+            int id = Integer.parseInt(getDataFromServer());
             if (result.equalsIgnoreCase("EMPTY")) {
                 window.showRegisterDialog();
             } else if (result.equalsIgnoreCase("BASE_USER")) {
                 window.showMessageDialog("You logged in as base user", JOptionPane.INFORMATION_MESSAGE);
-                new MenuWindow(0).setVisible(true);
+                new MenuWindow(0, id).setVisible(true);
                 window.setVisible(false);
             } else {
                 window.showMessageDialog("You logged in as admin", JOptionPane.INFORMATION_MESSAGE);
-                new MenuWindow(1).setVisible(true);
+                new MenuWindow(1, id).setVisible(true);
                 window.setVisible(false);
             }
         } else {

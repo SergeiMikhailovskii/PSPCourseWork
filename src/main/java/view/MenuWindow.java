@@ -9,10 +9,12 @@ public class MenuWindow extends JFrame {
     private JButton showAllUsersBtn = new JButton("Show all users");
 
     private int role;
+    private int id;
 
-    public MenuWindow(int role) {
+    public MenuWindow(int role, int id) {
         super("Menu window");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+        this.id = id;
         this.role = role;
         initWindow();
     }
@@ -23,7 +25,7 @@ public class MenuWindow extends JFrame {
 
         getContentPane().add(evaluatePropertyBtn);
         evaluatePropertyBtn.addActionListener(e-> {
-            new EvaluatePropertyWindow().setVisible(true);
+            new EvaluatePropertyWindow(id).setVisible(true);
             this.setVisible(false);
         });
         springLayout.putConstraint(SpringLayout.HORIZONTAL_CENTER, evaluatePropertyBtn, 0, SpringLayout.HORIZONTAL_CENTER, getContentPane());
@@ -40,7 +42,7 @@ public class MenuWindow extends JFrame {
         getContentPane().add(showAllUsersBtn);
         showAllUsersBtn.setVisible(role == 1);
         showAllUsersBtn.addActionListener(e -> {
-            new ShowUsersWindow().setVisible(true);
+            new ShowUsersWindow(id).setVisible(true);
             this.setVisible(false);
         });
         springLayout.putConstraint(SpringLayout.HORIZONTAL_CENTER, showAllUsersBtn, 0, SpringLayout.HORIZONTAL_CENTER, getContentPane());

@@ -21,9 +21,12 @@ public class EvaluatePropertyWindow extends JFrame {
     private JTextField repairDegreeTF = new JTextField();
     private JButton calculateBtn = new JButton("Calculate");
 
-    EvaluatePropertyWindow() {
+    private int id;
+
+    EvaluatePropertyWindow(int id) {
         super("Evaluate Property");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+        this.id = id;
         controller.attachView(this);
         initWindow();
     }
