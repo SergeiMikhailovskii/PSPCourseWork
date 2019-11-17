@@ -121,14 +121,6 @@ public class Server {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        /*int result = isUserExists(login, password);
-        if (result == 1) {
-            sendDataToClient(outputStream, "ADMIN");
-        } else if (result == 0) {
-            sendDataToClient(outputStream, "BASE_USER");
-        } else {
-            sendDataToClient(outputStream, "EMPTY");
-        }*/
     }
 
     private void getRepairDegreeCoefficient(OutputStream outputStream, String queryContent) {
