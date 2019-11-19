@@ -1,5 +1,7 @@
 package view;
 
+import contoller.ChartsController;
+
 import javax.swing.*;
 
 public class MenuWindow extends JFrame {
@@ -36,7 +38,7 @@ public class MenuWindow extends JFrame {
         springLayout.putConstraint(SpringLayout.NORTH, button2, 20, SpringLayout.SOUTH, evaluatePropertyBtn);
 
         getContentPane().add(showCharts);
-        showCharts.addActionListener(e-> new ChartScreen("Chart screen").setVisible(true));
+        showCharts.addActionListener(e-> new ChartsController().showCharts());
         springLayout.putConstraint(SpringLayout.HORIZONTAL_CENTER, showCharts, 0, SpringLayout.HORIZONTAL_CENTER, getContentPane());
         springLayout.putConstraint(SpringLayout.NORTH, showCharts, 20, SpringLayout.SOUTH, button2);
 

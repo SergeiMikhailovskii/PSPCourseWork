@@ -9,9 +9,9 @@ import org.jfree.data.general.PieDataset;
 
 import javax.swing.*;
 
-public class ChartScreen extends ApplicationFrame {
+public class YearPieChartWindow extends ApplicationFrame {
 
-    public ChartScreen(String title) {
+    public YearPieChartWindow(String title) {
         super(title);
         this.setSize(500, 500);
         setContentPane(createDemoPanel());
@@ -28,12 +28,12 @@ public class ChartScreen extends ApplicationFrame {
 
     private PieDataset createDataset() {
         DefaultPieDataset dataset = new DefaultPieDataset();
-        dataset.setValue("1960-1970", 20);
+        dataset.setValue("1960-1970", 0);
         dataset.setValue("1970-1980", 20);
         dataset.setValue("1980-1990", 20);
         dataset.setValue("1990-2000", 20);
         dataset.setValue("2000-2010", 10);
-        dataset.setValue("2010-2020", 10);
+        dataset.setValue("2010-2020", 30);
         return dataset;
     }
 }
