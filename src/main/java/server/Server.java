@@ -87,6 +87,8 @@ public class Server {
                                 getBuildYearCoefficient(outputStream, queryContent);
                             } else if (clientAction.equalsIgnoreCase("GET_REPAIR_DEGREE")) {
                                 getRepairDegreeCoefficient(outputStream, queryContent);
+                            } else if (clientAction.equalsIgnoreCase("GET_BUILD_YEAR_CHART_DATA")) {
+                                getBuildYearChartData(outputStream);
                             }
                         }
                     } catch (IOException e) {
@@ -97,6 +99,20 @@ public class Server {
                 e.printStackTrace();
             }
         }
+    }
+
+    private void getBuildYearChartData(OutputStream outputStream) {
+        try {
+            ResultSet resultSet = statement.executeQuery("SELECT COUNT(*) FROM buildyear");
+            int count = 0;
+            while (resultSet.next()) {
+                count = resultSet.getInt(1);
+            }
+            sendDataToClient(outputStream, String.valueOf(count));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
     }
 
     private void logInUser(OutputStream outputStream, String queryContent) {
