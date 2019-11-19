@@ -2,6 +2,7 @@ package contoller;
 
 import client.ClientSocket;
 import org.jfree.data.general.DefaultPieDataset;
+import view.DistanceFromCenterBarChartWindow;
 import view.YearPieChartWindow;
 
 import java.io.IOException;
@@ -21,6 +22,11 @@ public class ChartsController {
 
     public void showCharts() {
         showYearPieChartWindow();
+        showDistanceFromCenterBarChartWindow();
+    }
+
+    private void showDistanceFromCenterBarChartWindow() {
+        new DistanceFromCenterBarChartWindow("Distance from center").setVisible(true);
     }
 
     private void showYearPieChartWindow() {
