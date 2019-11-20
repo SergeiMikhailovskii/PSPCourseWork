@@ -8,15 +8,13 @@ import org.jfree.chart.ui.ApplicationFrame;
 import org.jfree.data.category.CategoryDataset;
 
 public class DistanceFromCenterBarChartWindow extends ApplicationFrame {
-    private CategoryDataset dataset;
 
     public DistanceFromCenterBarChartWindow(String title, CategoryDataset dataset) {
         super(title);
-        this.dataset = dataset;
         JFreeChart barChart = ChartFactory.createBarChart(
                 title,
                 "Distance in km",
-                "%",
+                "Amount",
                 dataset,
                 PlotOrientation.VERTICAL,
                 true,
