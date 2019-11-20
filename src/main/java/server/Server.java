@@ -1,5 +1,6 @@
 package server;
 
+import constants.Actions;
 import entities.Property;
 
 import java.io.IOException;
@@ -67,29 +68,29 @@ public class Server {
                             queryContent = new String(msg, 0, k);
                             queryContent = queryContent.trim();
 
-                            if (clientAction.equalsIgnoreCase("END")) {
+                            if (clientAction.equalsIgnoreCase(Actions.END)) {
                                 flag = false;
-                            } else if (clientAction.equalsIgnoreCase("LOGIN")) {
+                            } else if (clientAction.equalsIgnoreCase(Actions.LOGIN)) {
                                 logInUser(outputStream, queryContent);
-                            } else if (clientAction.equalsIgnoreCase("REGISTER")) {
+                            } else if (clientAction.equalsIgnoreCase(Actions.REGISTER)) {
                                 String[] arr = queryContent.split(" ");
                                 String login = arr[0];
                                 String password = arr[1];
                                 registerUser(login, password);
                                 sendDataToClient(outputStream, "REGISTERED");
-                            } else if (clientAction.equalsIgnoreCase("GET_ALL_USERS")) {
+                            } else if (clientAction.equalsIgnoreCase(Actions.GET_ALL_USERS)) {
                                 getAllUsers(outputStream);
-                            } else if (clientAction.equalsIgnoreCase("SAVE_PROPERTY")) {
+                            } else if (clientAction.equalsIgnoreCase(Actions.SAVE_PROPERTY)) {
                                 insertProperty(outputStream, queryContent);
-                            } else if (clientAction.equalsIgnoreCase("GET_DISTANCE_FROM_CENTER")) {
+                            } else if (clientAction.equalsIgnoreCase(Actions.GET_DISTANCE_FROM_CENTER)) {
                                 getDistanceCoefficient(outputStream, queryContent);
-                            } else if (clientAction.equalsIgnoreCase("GET_BUILD_YEAR")) {
+                            } else if (clientAction.equalsIgnoreCase(Actions.GET_BUILD_YEAR)) {
                                 getBuildYearCoefficient(outputStream, queryContent);
-                            } else if (clientAction.equalsIgnoreCase("GET_REPAIR_DEGREE")) {
+                            } else if (clientAction.equalsIgnoreCase(Actions.GET_REPAIR_DEGREE)) {
                                 getRepairDegreeCoefficient(outputStream, queryContent);
-                            } else if (clientAction.equalsIgnoreCase("GET_BUILD_YEAR_CHART_DATA")) {
+                            } else if (clientAction.equalsIgnoreCase(Actions.GET_BUILD_YEAR_CHART_DATA)) {
                                 getBuildYearChartData(outputStream);
-                            } else if (clientAction.equalsIgnoreCase("GET_DISTANCE_FROM_SERVER_BAR_CHART_DATA")) {
+                            } else if (clientAction.equalsIgnoreCase(Actions.GET_DISTANCE_FROM_SERVER_BAR_CHART_DATA)) {
                                 getDistanceFromCenterChartData(outputStream);
                             }
                         }
