@@ -36,22 +36,18 @@ public class ChartsController {
     }
 
     private CategoryDataset getDistanceFromCenterBarChartData() {
-        final String distance1 = "0-2";
-        final String distance2 = "2-4";
-        final String distance3 = "4-6";
-        final String distance4 = "6-8";
-        final String distance5 = "8-10";
-        final String distance6 = "10-12";
+        final DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         final String distanceFromCenter = "";
 
-        final DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+        sendDataToServer("GET_DISTANCE_FROM_SERVER_BAR_CHART_DATA");
+        sendDataToServer(" ");
+        int rows = Integer.parseInt(getDataFromServer());
 
-        dataset.addValue(10, distance1, distanceFromCenter);
-        dataset.addValue(20, distance2, distanceFromCenter);
-        dataset.addValue(30, distance3, distanceFromCenter);
-        dataset.addValue(30, distance4, distanceFromCenter);
-        dataset.addValue(5, distance5, distanceFromCenter);
-        dataset.addValue(5, distance6, distanceFromCenter);
+        for (int i = 0; i < rows; i++) {
+            String res = getDataFromServer();
+            String[] arr = res.split(" ");
+            dataset.addValue(Integer.parseInt(arr[0]), arr[1], distanceFromCenter);
+        }
 
         return dataset;
     }
@@ -60,7 +56,7 @@ public class ChartsController {
         sendDataToServer("GET_BUILD_YEAR_CHART_DATA");
         sendDataToServer(" ");
         int rows = Integer.parseInt(getDataFromServer());
-        System.out.println(rows+" rows in db");
+        System.out.println(rows + " rows in db");
 
         DefaultPieDataset dataset = new DefaultPieDataset();
         dataset.setValue("1960-1970", 0);

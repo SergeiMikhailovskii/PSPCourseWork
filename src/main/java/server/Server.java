@@ -89,6 +89,8 @@ public class Server {
                                 getRepairDegreeCoefficient(outputStream, queryContent);
                             } else if (clientAction.equalsIgnoreCase("GET_BUILD_YEAR_CHART_DATA")) {
                                 getBuildYearChartData(outputStream);
+                            } else if (clientAction.equalsIgnoreCase("GET_DISTANCE_FROM_SERVER_BAR_CHART_DATA")) {
+                                getDistanceFromCenterChartData(outputStream);
                             }
                         }
                     } catch (IOException e) {
@@ -98,6 +100,35 @@ public class Server {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    private void getDistanceFromCenterChartData(OutputStream outputStream) {
+        try {
+            ResultSet resultSet = statement.executeQuery("SELECT COUNT(*) FROM distancefromcenter");
+            int count = 0;
+            while (resultSet.next()) {
+                count = resultSet.getInt(1);
+            }
+            sendDataToClient(outputStream, String.valueOf(count));
+            for (int i = 1; i <= count; i++) {
+                int val = 0;
+                String borders = "";
+
+                resultSet = statement.executeQuery("SELECT bottomBorder, topBorder FROM distancefromcenter WHERE id=" + i);
+                while (resultSet.next()) {
+                    borders = resultSet.getInt("bottomBorder") + "-" + resultSet.getInt("topBorder");
+                }
+
+                resultSet = statement.executeQuery("SELECT COUNT(*) FROM property WHERE distanceFromCenterID=" + i);
+                while (resultSet.next()) {
+                    val = resultSet.getInt(1);
+                }
+
+                sendDataToClient(outputStream, val + " " + borders);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
