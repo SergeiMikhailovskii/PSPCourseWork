@@ -12,6 +12,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ChartsController {
     private Socket socket;
@@ -53,18 +55,26 @@ public class ChartsController {
     }
 
     private DefaultPieDataset getBuildYearData() {
+        Map<String, Integer> data = new HashMap<>();
+        DefaultPieDataset dataset = new DefaultPieDataset();
+        int sum = 0;
+
         sendDataToServer("GET_BUILD_YEAR_CHART_DATA");
         sendDataToServer(" ");
         int rows = Integer.parseInt(getDataFromServer());
-        System.out.println(rows + " rows in db");
 
-        DefaultPieDataset dataset = new DefaultPieDataset();
-        dataset.setValue("1960-1970", 0);
-        dataset.setValue("1970-1980", 20);
-        dataset.setValue("1980-1990", 20);
-        dataset.setValue("1990-2000", 20);
-        dataset.setValue("2000-2010", 10);
-        dataset.setValue("2010-2020", 30);
+        for (int i = 0; i < rows; i++) {
+            String res = getDataFromServer();
+            String[] arr = res.split(" ");
+            data.put(arr[1], Integer.parseInt(arr[0]));
+            sum += Integer.parseInt(arr[0]);
+        }
+
+        for (Map.Entry<String, Integer> item : data.entrySet()) {
+            if (item.getValue() != 0) {
+                dataset.setValue(item.getKey(), (double) item.getValue() * 100 / sum);
+            }
+        }
 
         return dataset;
     }

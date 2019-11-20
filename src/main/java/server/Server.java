@@ -140,6 +140,22 @@ public class Server {
                 count = resultSet.getInt(1);
             }
             sendDataToClient(outputStream, String.valueOf(count));
+            for (int i = 1; i <= count; i++) {
+                int val = 0;
+                String borders = "";
+
+                resultSet = statement.executeQuery("SELECT bottomBorder, topBorder FROM buildyear WHERE id=" + i);
+                while (resultSet.next()) {
+                    borders = resultSet.getInt("bottomBorder") + "-" + resultSet.getInt("topBorder");
+                }
+
+                resultSet = statement.executeQuery("SELECT COUNT(*) FROM property WHERE buildYearID=" + i);
+                while (resultSet.next()) {
+                    val = resultSet.getInt(1);
+                }
+
+                sendDataToClient(outputStream, val + " " + borders);
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
