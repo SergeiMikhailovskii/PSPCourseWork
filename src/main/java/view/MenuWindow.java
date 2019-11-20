@@ -1,11 +1,13 @@
 package view;
 
+import contoller.ChartsController;
+
 import javax.swing.*;
 
 public class MenuWindow extends JFrame {
     private JButton evaluatePropertyBtn = new JButton("Evaluate property");
     private JButton button2 = new JButton("Button2");
-    private JButton button3 = new JButton("Button3");
+    private JButton showCharts = new JButton("Show charts");
     private JButton showAllUsersBtn = new JButton("Show all users");
 
     private int role;
@@ -35,9 +37,10 @@ public class MenuWindow extends JFrame {
         springLayout.putConstraint(SpringLayout.HORIZONTAL_CENTER, button2, 0, SpringLayout.HORIZONTAL_CENTER, getContentPane());
         springLayout.putConstraint(SpringLayout.NORTH, button2, 20, SpringLayout.SOUTH, evaluatePropertyBtn);
 
-        getContentPane().add(button3);
-        springLayout.putConstraint(SpringLayout.HORIZONTAL_CENTER, button3, 0, SpringLayout.HORIZONTAL_CENTER, getContentPane());
-        springLayout.putConstraint(SpringLayout.NORTH, button3, 20, SpringLayout.SOUTH, button2);
+        getContentPane().add(showCharts);
+        showCharts.addActionListener(e-> new ChartsController().showCharts());
+        springLayout.putConstraint(SpringLayout.HORIZONTAL_CENTER, showCharts, 0, SpringLayout.HORIZONTAL_CENTER, getContentPane());
+        springLayout.putConstraint(SpringLayout.NORTH, showCharts, 20, SpringLayout.SOUTH, button2);
 
         getContentPane().add(showAllUsersBtn);
         showAllUsersBtn.setVisible(role == 1);
@@ -46,7 +49,7 @@ public class MenuWindow extends JFrame {
             this.setVisible(false);
         });
         springLayout.putConstraint(SpringLayout.HORIZONTAL_CENTER, showAllUsersBtn, 0, SpringLayout.HORIZONTAL_CENTER, getContentPane());
-        springLayout.putConstraint(SpringLayout.NORTH, showAllUsersBtn, 20, SpringLayout.SOUTH, button3);
+        springLayout.putConstraint(SpringLayout.NORTH, showAllUsersBtn, 20, SpringLayout.SOUTH, showCharts);
 
         setSize(300, 300);
 
