@@ -1,6 +1,7 @@
 package contoller;
 
 import client.ClientSocket;
+import constants.Actions;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
@@ -41,7 +42,7 @@ public class ChartsController {
         final DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         final String distanceFromCenter = "";
 
-        sendDataToServer("GET_DISTANCE_FROM_SERVER_BAR_CHART_DATA");
+        sendDataToServer(Actions.GET_DISTANCE_FROM_SERVER_BAR_CHART_DATA);
         sendDataToServer(" ");
         int rows = Integer.parseInt(getDataFromServer());
 
@@ -59,7 +60,7 @@ public class ChartsController {
         DefaultPieDataset dataset = new DefaultPieDataset();
         int sum = 0;
 
-        sendDataToServer("GET_BUILD_YEAR_CHART_DATA");
+        sendDataToServer(Actions.GET_BUILD_YEAR_CHART_DATA);
         sendDataToServer(" ");
         int rows = Integer.parseInt(getDataFromServer());
 

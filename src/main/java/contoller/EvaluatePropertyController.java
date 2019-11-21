@@ -1,6 +1,7 @@
 package contoller;
 
 import client.ClientSocket;
+import constants.Actions;
 import entities.Property;
 import view.EvaluatePropertyWindow;
 
@@ -34,17 +35,17 @@ public class EvaluatePropertyController {
         // todo implement count price
         // todo implement setting current user
         // todo change distance, buildYear and repairDegree to real indexes from DB
-        sendDataToServer("GET_DISTANCE_FROM_CENTER");
+        sendDataToServer(Actions.GET_DISTANCE_FROM_CENTER);
         sendDataToServer(String.valueOf(distanceFromCenter));
         double distanceCoefficient = Double.parseDouble(getDataFromServer());
         int distanceID = (int) Double.parseDouble(getDataFromServer());
 
-        sendDataToServer("GET_BUILD_YEAR");
+        sendDataToServer(Actions.GET_BUILD_YEAR);
         sendDataToServer(String.valueOf(buildYear));
         double yearCoefficient = Double.parseDouble(getDataFromServer());
         int yearID = (int) Double.parseDouble(getDataFromServer());
 
-        sendDataToServer("GET_REPAIR_DEGREE");
+        sendDataToServer(Actions.GET_REPAIR_DEGREE);
         sendDataToServer(String.valueOf(repairDegree));
         double repairDegreeCoefficient = Double.parseDouble(getDataFromServer());
         int repairID = (int) Double.parseDouble(getDataFromServer());
@@ -53,7 +54,7 @@ public class EvaluatePropertyController {
 
         Property property = new Property(address, square, sum, distanceID, yearID, repairID, id);
 
-        sendDataToServer("SAVE_PROPERTY");
+        sendDataToServer(Actions.SAVE_PROPERTY);
         sendDataToServer(property.toString());
         String response = getDataFromServer();
 

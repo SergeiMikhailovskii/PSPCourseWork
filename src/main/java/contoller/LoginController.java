@@ -1,6 +1,7 @@
 package contoller;
 
 import client.ClientSocket;
+import constants.Actions;
 import view.LoginWindow;
 import view.MenuWindow;
 
@@ -23,7 +24,7 @@ public class LoginController {
 
     public void logInUser(String login, String password) {
         if (!login.isEmpty() && !password.isEmpty()) {
-            sendDataToServer("LOGIN");
+            sendDataToServer(Actions.LOGIN);
             sendDataToServer(login + " " + password);
             String result = getDataFromServer();
             int id = Integer.parseInt(getDataFromServer());
@@ -44,7 +45,7 @@ public class LoginController {
     }
 
     public void registerUser(String login, String password) {
-        sendDataToServer("REGISTER");
+        sendDataToServer(Actions.REGISTER);
         sendDataToServer(login + " " + password);
         String result = getDataFromServer();
         if (result.equalsIgnoreCase("REGISTERED")) {

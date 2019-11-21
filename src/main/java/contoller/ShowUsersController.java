@@ -1,6 +1,7 @@
 package contoller;
 
 import client.ClientSocket;
+import constants.Actions;
 import view.MenuWindow;
 import view.ShowUsersWindow;
 
@@ -33,7 +34,7 @@ public class ShowUsersController {
 
     public void getUsersFromDB() {
         Vector<Vector> rowData = new Vector<>();
-        sendDataToServer("GET_ALL_USERS");
+        sendDataToServer(Actions.GET_ALL_USERS);
         sendDataToServer(" ");
         int rows = Integer.parseInt(getDataFromServer());
         for (int i = 0; i < rows; i++) {
