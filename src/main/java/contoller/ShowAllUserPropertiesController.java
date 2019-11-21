@@ -9,6 +9,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
+import java.util.Vector;
 
 public class ShowAllUserPropertiesController {
     private Socket socket;
@@ -57,11 +59,19 @@ public class ShowAllUserPropertiesController {
 
 
     public void getAllUserProperties() {
+        Vector<Vector> rowData = new Vector<>();
         sendDataToServer(Actions.GET_ALL_USER_PROPERTIES);
         sendDataToServer(String.valueOf(id));
         int count = Integer.parseInt(getDataFromServer());
         for (int i = 0; i < count; i++) {
             String res = getDataFromServer();
+            System.out.println(res);
+            String[] arr = res.split(" ");
+            Vector<Object> object = new Vector<>(Arrays.asList(arr));
+            rowData.add(object);
+            System.out.println("added");
         }
+        System.out.println(rowData.size()+" SIZE");
+        window.setTable(rowData);
     }
 }

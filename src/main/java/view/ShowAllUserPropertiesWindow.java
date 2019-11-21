@@ -25,6 +25,10 @@ public class ShowAllUserPropertiesWindow extends JFrame {
         initWindow();
     }
 
+    public void setTable(Vector<Vector> data) {
+        table = new JTable(data, columnNames);
+    }
+
     private void initWindow() {
         SpringLayout springLayout = new SpringLayout();
         getContentPane().setLayout(springLayout);
@@ -40,4 +44,5 @@ public class ShowAllUserPropertiesWindow extends JFrame {
         setSize(300, 300);
 
     }
+
 }

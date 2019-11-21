@@ -10,6 +10,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 import java.util.Vector;
 
 public class ShowUsersController {
@@ -40,10 +41,7 @@ public class ShowUsersController {
         for (int i = 0; i < rows; i++) {
             String row = getDataFromServer();
             String[] arr = row.split(" ");
-            Vector<Object> object = new Vector<>();
-            object.add(arr[0]);
-            object.add(arr[1]);
-            object.add(arr[2]);
+            Vector<Object> object = new Vector<>(Arrays.asList(arr));
             rowData.add(object);
         }
         window.onUsersLoaded(rowData);
