@@ -92,6 +92,8 @@ public class Server {
                                 getBuildYearChartData(outputStream);
                             } else if (clientAction.equalsIgnoreCase(Actions.GET_DISTANCE_FROM_SERVER_BAR_CHART_DATA)) {
                                 getDistanceFromCenterChartData(outputStream);
+                            } else if (clientAction.equalsIgnoreCase(Actions.GET_ALL_USER_PROPERTIES)) {
+                                getAllUserProperties(outputStream, queryContent);
                             }
                         }
                     } catch (IOException e) {
@@ -101,6 +103,37 @@ public class Server {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    private void getAllUserProperties(OutputStream outputStream, String queryContent) {
+        int id = Integer.parseInt(queryContent);
+        ResultSet resultSet;
+        try {
+            resultSet = statement.executeQuery("SELECT COUNT(*) FROM property WHERE userId=" + id);
+            int count = 0;
+            while (resultSet.next()) {
+                count = resultSet.getInt(1);
+            }
+            sendDataToClient(outputStream, String.valueOf(count));
+
+            resultSet = statement.executeQuery("SELECT * FROM property WHERE userId=" + id);
+
+            // todo move all columns names to constants
+
+            while (resultSet.next()) {
+                String res = resultSet.getString("address") + " "
+                        + resultSet.getInt("square") + " "
+                        + resultSet.getDouble("price") + " "
+                        + resultSet.getInt("distanceFromCenterID") + " "
+                        + resultSet.getInt("buildYearID") + " "
+                        + resultSet.getInt("repairDegreeID");
+
+                sendDataToClient(outputStream, res);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 

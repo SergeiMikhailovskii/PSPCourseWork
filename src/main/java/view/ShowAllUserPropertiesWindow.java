@@ -3,6 +3,7 @@ package view;
 import contoller.ShowAllUserPropertiesController;
 
 import javax.swing.*;
+import java.util.List;
 import java.util.Vector;
 
 public class ShowAllUserPropertiesWindow extends JFrame {
@@ -14,10 +15,13 @@ public class ShowAllUserPropertiesWindow extends JFrame {
 
     private int id;
 
-    public ShowAllUserPropertiesWindow(int id) {
+    ShowAllUserPropertiesWindow(int id) {
         super("Show all user properties window");
         controller.attachView(this);
+        columnNames.addAll(List.of("Address", "Square", "Price", "DistanceFromCenterID", "BuildYearID", "RepairDegreeID"));
         this.id = id;
+        controller.setId(this.id);
+        controller.getAllUserProperties();
         initWindow();
     }
 

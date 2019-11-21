@@ -1,6 +1,7 @@
 package contoller;
 
 import client.ClientSocket;
+import constants.Actions;
 import view.ShowAllUserPropertiesWindow;
 
 import java.io.IOException;
@@ -16,12 +17,18 @@ public class ShowAllUserPropertiesController {
 
     private ShowAllUserPropertiesWindow window;
 
+    private int id;
+
     public ShowAllUserPropertiesController() {
         socket = ClientSocket.getSocket();
     }
 
     public void attachView(ShowAllUserPropertiesWindow window) {
         this.window = window;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     private void sendDataToServer(String res) {
@@ -49,4 +56,12 @@ public class ShowAllUserPropertiesController {
     }
 
 
+    public void getAllUserProperties() {
+        sendDataToServer(Actions.GET_ALL_USER_PROPERTIES);
+        sendDataToServer(String.valueOf(id));
+        int count = Integer.parseInt(getDataFromServer());
+        for (int i = 0; i < count; i++) {
+            String res = getDataFromServer();
+        }
+    }
 }
