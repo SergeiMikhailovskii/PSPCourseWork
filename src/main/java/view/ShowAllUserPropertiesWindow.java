@@ -1,5 +1,7 @@
 package view;
 
+import contoller.ShowAllUserPropertiesController;
+
 import javax.swing.*;
 import java.util.Vector;
 
@@ -8,10 +10,13 @@ public class ShowAllUserPropertiesWindow extends JFrame {
     private JButton backBtn = new JButton("Back");
     private Vector<String> columnNames = new Vector<>();
 
+    private ShowAllUserPropertiesController controller = new ShowAllUserPropertiesController();
+
     private int id;
 
     public ShowAllUserPropertiesWindow(int id) {
         super("Show all user properties window");
+        controller.attachView(this);
         this.id = id;
         initWindow();
     }
