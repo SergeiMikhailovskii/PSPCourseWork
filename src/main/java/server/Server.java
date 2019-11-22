@@ -121,7 +121,6 @@ public class Server {
 
             // todo move all columns names to constants
 
-            int i = 0;
             while (resultSet.next()) {
                 String res = resultSet.getString("address") + " "
                         + resultSet.getInt("square") + " "
@@ -130,9 +129,7 @@ public class Server {
                         + resultSet.getInt("buildYearID") + " "
                         + resultSet.getInt("repairDegreeID");
                 sendDataToClient(outputStream, res);
-                i++;
             }
-            System.out.println(i);
 
         } catch (SQLException e) {
             e.printStackTrace();
