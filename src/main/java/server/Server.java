@@ -128,8 +128,7 @@ public class Server {
                         + resultSet.getDouble("price") + " "
                         + resultSet.getInt("distanceFromCenterID") + " "
                         + resultSet.getInt("buildYearID") + " "
-                        + resultSet.getInt("repairDegreeID") +" ";
-                System.out.println(res);
+                        + resultSet.getInt("repairDegreeID");
                 sendDataToClient(outputStream, res);
                 i++;
             }
