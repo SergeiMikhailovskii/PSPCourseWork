@@ -8,7 +8,6 @@ import java.util.Vector;
 
 public class ShowAllUserPropertiesWindow extends JFrame {
     private JTable table = new JTable();
-    private JButton backBtn = new JButton("Back");
     private Vector<String> columnNames = new Vector<>();
 
     private ShowAllUserPropertiesController controller = new ShowAllUserPropertiesController();
@@ -34,15 +33,10 @@ public class ShowAllUserPropertiesWindow extends JFrame {
         getContentPane().setLayout(springLayout);
 
         getContentPane().add(new JScrollPane(table));
-        springLayout.putConstraint(SpringLayout.HORIZONTAL_CENTER, table, 0, SpringLayout.HORIZONTAL_CENTER, getContentPane());
-        springLayout.putConstraint(SpringLayout.NORTH, table, 20, SpringLayout.NORTH, getContentPane());
+        springLayout.putConstraint(SpringLayout.HORIZONTAL_CENTER, table, 0, SpringLayout.WEST, getContentPane());
+        springLayout.putConstraint(SpringLayout.NORTH, table, 0, SpringLayout.NORTH, getContentPane());
 
-        getContentPane().add(backBtn);
-        springLayout.putConstraint(SpringLayout.HORIZONTAL_CENTER, backBtn, 0, SpringLayout.HORIZONTAL_CENTER, getContentPane());
-        springLayout.putConstraint(SpringLayout.NORTH, backBtn, 20, SpringLayout.SOUTH, table);
-
-        setSize(300, 300);
-
+        setSize(500, 500);
     }
 
 }

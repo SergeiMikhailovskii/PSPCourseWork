@@ -34,10 +34,7 @@ public class MenuWindow extends JFrame {
         springLayout.putConstraint(SpringLayout.NORTH, evaluatePropertyBtn, 20, SpringLayout.NORTH, getContentPane());
 
         getContentPane().add(showAllUserPropertiesBtn);
-        showAllUserPropertiesBtn.addActionListener(e -> {
-            new ShowAllUserPropertiesWindow(id).setVisible(true);
-            this.setVisible(false);
-        });
+        showAllUserPropertiesBtn.addActionListener(e -> new ShowAllUserPropertiesWindow(id).setVisible(true));
         springLayout.putConstraint(SpringLayout.HORIZONTAL_CENTER, showAllUserPropertiesBtn, 0, SpringLayout.HORIZONTAL_CENTER, getContentPane());
         springLayout.putConstraint(SpringLayout.NORTH, showAllUserPropertiesBtn, 20, SpringLayout.SOUTH, evaluatePropertyBtn);
 
@@ -48,10 +45,7 @@ public class MenuWindow extends JFrame {
 
         getContentPane().add(showAllUsersBtn);
         showAllUsersBtn.setVisible(role == 1);
-        showAllUsersBtn.addActionListener(e -> {
-            new ShowUsersWindow(id).setVisible(true);
-            this.setVisible(false);
-        });
+        showAllUsersBtn.addActionListener(e -> new ShowUsersWindow(id).setVisible(true));
         springLayout.putConstraint(SpringLayout.HORIZONTAL_CENTER, showAllUsersBtn, 0, SpringLayout.HORIZONTAL_CENTER, getContentPane());
         springLayout.putConstraint(SpringLayout.NORTH, showAllUsersBtn, 20, SpringLayout.SOUTH, showCharts);
 
