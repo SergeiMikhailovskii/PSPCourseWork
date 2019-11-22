@@ -1,29 +1,17 @@
 package contoller;
 
-import client.ClientSocket;
+import base.BaseController;
 import constants.Actions;
 import view.MenuWindow;
 import view.ShowUsersWindow;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.net.Socket;
-import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.Vector;
 
-public class ShowUsersController {
+public class ShowUsersController extends BaseController {
     private ShowUsersWindow window;
-    private Socket socket;
-    private InputStream is;
-    private OutputStream os;
 
     private int id;
-
-    public ShowUsersController() {
-        socket = ClientSocket.getSocket();
-    }
 
     public void attachView(ShowUsersWindow window) {
         this.window = window;
@@ -52,27 +40,4 @@ public class ShowUsersController {
         window.setVisible(false);
     }
 
-    private void sendDataToServer(String res) {
-        try {
-            os = socket.getOutputStream();
-            os.write(res.getBytes());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private String getDataFromServer() {
-        byte[] bytes = new byte[100];
-        String str = null;
-        try {
-            is = socket.getInputStream();
-            //noinspection ResultOfMethodCallIgnored
-            is.read(bytes);
-            str = new String(bytes, StandardCharsets.UTF_8);
-            str = str.trim();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return str;
-    }
 }
