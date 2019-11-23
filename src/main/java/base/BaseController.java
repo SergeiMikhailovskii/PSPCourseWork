@@ -10,8 +10,6 @@ import java.nio.charset.StandardCharsets;
 
 public abstract class BaseController {
     private Socket socket;
-    private InputStream is;
-    private OutputStream os;
 
     protected BaseController() {
         socket = ClientSocket.getSocket();
@@ -19,7 +17,7 @@ public abstract class BaseController {
 
     protected void sendDataToServer(String res) {
         try {
-            os = socket.getOutputStream();
+            OutputStream os = socket.getOutputStream();
             os.write(res.getBytes());
         } catch (IOException e) {
             e.printStackTrace();
@@ -30,7 +28,7 @@ public abstract class BaseController {
         byte[] bytes = new byte[100];
         String str = null;
         try {
-            is = socket.getInputStream();
+            InputStream is = socket.getInputStream();
             //noinspection ResultOfMethodCallIgnored
             is.read(bytes);
             str = new String(bytes, StandardCharsets.UTF_8);
