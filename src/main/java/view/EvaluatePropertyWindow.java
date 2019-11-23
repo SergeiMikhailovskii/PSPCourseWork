@@ -1,11 +1,12 @@
 package view;
 
+import base.BaseView;
 import contoller.EvaluatePropertyController;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class EvaluatePropertyWindow extends JFrame {
+public class EvaluatePropertyWindow extends JFrame implements BaseView {
     private EvaluatePropertyController controller = new EvaluatePropertyController();
 
     private JLabel addressLB = new JLabel("Address: ");

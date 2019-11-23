@@ -1,12 +1,13 @@
 package view;
 
+import base.BaseView;
 import contoller.ShowUsersController;
 
 import javax.swing.*;
 import java.util.List;
 import java.util.Vector;
 
-public class ShowUsersWindow extends JFrame {
+public class ShowUsersWindow extends JFrame implements BaseView {
     private JTable table = new JTable();
     private JButton backBtn = new JButton("Back");
     private Vector<String> columnNames = new Vector<>();

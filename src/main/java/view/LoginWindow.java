@@ -1,12 +1,13 @@
 package view;
 
+import base.BaseView;
 import client.ClientSocket;
 import contoller.LoginController;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class LoginWindow extends JFrame {
+public class LoginWindow extends JFrame implements BaseView {
     private JTextField loginTF = new JTextField();
     private JTextField passwordTF = new JTextField();
     private JLabel loginLB = new JLabel("Login:");

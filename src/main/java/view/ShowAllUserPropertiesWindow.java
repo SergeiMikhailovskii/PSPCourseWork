@@ -1,12 +1,13 @@
 package view;
 
+import base.BaseView;
 import contoller.ShowAllUserPropertiesController;
 
 import javax.swing.*;
 import java.util.List;
 import java.util.Vector;
 
-public class ShowAllUserPropertiesWindow extends JFrame {
+public class ShowAllUserPropertiesWindow extends JFrame implements BaseView {
     private JTable table = new JTable();
     private Vector<String> columnNames = new Vector<>();
 

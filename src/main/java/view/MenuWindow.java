@@ -1,10 +1,11 @@
 package view;
 
+import base.BaseView;
 import contoller.ChartsController;
 
 import javax.swing.*;
 
-public class MenuWindow extends JFrame {
+public class MenuWindow extends JFrame implements BaseView {
     private JButton evaluatePropertyBtn = new JButton("Evaluate property");
     private JButton showAllUserPropertiesBtn = new JButton("Show all user properties");
     private JButton showCharts = new JButton("Show charts");
