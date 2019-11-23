@@ -8,14 +8,8 @@ import view.ShowUsersWindow;
 import java.util.Arrays;
 import java.util.Vector;
 
-public class ShowUsersController extends BaseController {
-    private ShowUsersWindow window;
-
+public class ShowUsersController extends BaseController<ShowUsersWindow> {
     private int id;
-
-    public void attachView(ShowUsersWindow window) {
-        this.window = window;
-    }
 
     public void setId(int id) {
         this.id = id;
@@ -32,12 +26,12 @@ public class ShowUsersController extends BaseController {
             Vector<Object> object = new Vector<>(Arrays.asList(arr));
             rowData.add(object);
         }
-        window.onUsersLoaded(rowData);
+        view.onUsersLoaded(rowData);
     }
 
     public void navigateBack() {
         new MenuWindow(1, id).setVisible(true);
-        window.setVisible(false);
+        view.setVisible(false);
     }
 
 }

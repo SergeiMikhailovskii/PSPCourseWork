@@ -8,8 +8,9 @@ import java.io.OutputStream;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
 
-public abstract class BaseController {
+public abstract class BaseController<T extends BaseView> {
     private Socket socket;
+    protected T view;
 
     protected BaseController() {
         socket = ClientSocket.getSocket();
@@ -37,5 +38,9 @@ public abstract class BaseController {
             e.printStackTrace();
         }
         return str;
+    }
+
+    public void attachView(T view) {
+        this.view = view;
     }
 }

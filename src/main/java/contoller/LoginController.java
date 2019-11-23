@@ -7,8 +7,7 @@ import view.MenuWindow;
 
 import javax.swing.*;
 
-public class LoginController extends BaseController {
-    private LoginWindow window;
+public class LoginController extends BaseController<LoginWindow> {
 
     public void logInUser(String login, String password) {
         if (!login.isEmpty() && !password.isEmpty()) {
@@ -17,18 +16,18 @@ public class LoginController extends BaseController {
             int role = Integer.parseInt(getDataFromServer());
             int id = Integer.parseInt(getDataFromServer());
             if (role == -1) {
-                window.showRegisterDialog();
+                view.showRegisterDialog();
             } else if (role == 0) {
-                window.showMessageDialog("You logged in as base user", JOptionPane.INFORMATION_MESSAGE);
+                view.showMessageDialog("You logged in as base user", JOptionPane.INFORMATION_MESSAGE);
                 new MenuWindow(0, id).setVisible(true);
-                window.setVisible(false);
+                view.setVisible(false);
             } else if (role == 1) {
-                window.showMessageDialog("You logged in as admin", JOptionPane.INFORMATION_MESSAGE);
+                view.showMessageDialog("You logged in as admin", JOptionPane.INFORMATION_MESSAGE);
                 new MenuWindow(1, id).setVisible(true);
-                window.setVisible(false);
+                view.setVisible(false);
             }
         } else {
-            window.showMessageDialog("Fill the fields!", JOptionPane.ERROR_MESSAGE);
+            view.showMessageDialog("Fill the fields!", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -37,12 +36,9 @@ public class LoginController extends BaseController {
         sendDataToServer(login + " " + password);
         String result = getDataFromServer();
         if (result.equalsIgnoreCase("REGISTERED")) {
-            window.showMessageDialog("Registered", JOptionPane.INFORMATION_MESSAGE);
+            view.showMessageDialog("Registered", JOptionPane.INFORMATION_MESSAGE);
             logInUser(login, password);
         }
     }
 
-    public void attachView(LoginWindow window) {
-        this.window = window;
-    }
 }

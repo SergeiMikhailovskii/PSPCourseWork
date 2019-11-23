@@ -5,13 +5,8 @@ import constants.Actions;
 import entities.Property;
 import view.EvaluatePropertyWindow;
 
-public class EvaluatePropertyController extends BaseController {
-    private EvaluatePropertyWindow window;
+public class EvaluatePropertyController extends BaseController<EvaluatePropertyWindow> {
     private int id;
-
-    public void attachView(EvaluatePropertyWindow window) {
-        this.window = window;
-    }
 
     public void setId(int id) {
         this.id = id;
@@ -46,8 +41,8 @@ public class EvaluatePropertyController extends BaseController {
         String response = getDataFromServer();
 
         if (response.equalsIgnoreCase("Inserted")) {
-            window.onDataCalculated(sum);
-            window.onDataSaved();
+            view.onDataCalculated(sum);
+            view.onDataSaved();
         }
     }
 

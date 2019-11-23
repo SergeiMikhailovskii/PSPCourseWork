@@ -9,13 +9,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Vector;
 
-public class ShowAllUserPropertiesController extends BaseController {
-    private ShowAllUserPropertiesWindow window;
+public class ShowAllUserPropertiesController extends BaseController<ShowAllUserPropertiesWindow> {
     private int id;
-
-    public void attachView(ShowAllUserPropertiesWindow window) {
-        this.window = window;
-    }
 
     public void setId(int id) {
         this.id = id;
@@ -37,6 +32,6 @@ public class ShowAllUserPropertiesController extends BaseController {
             rowData.add(object);
         }
         System.out.println(rowData.size() + " SIZE");
-        window.setTable(rowData);
+        view.setTable(rowData);
     }
 }
