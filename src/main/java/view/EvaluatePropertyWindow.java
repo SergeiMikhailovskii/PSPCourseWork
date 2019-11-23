@@ -1,11 +1,12 @@
 package view;
 
+import base.BaseView;
 import contoller.EvaluatePropertyController;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class EvaluatePropertyWindow extends JFrame {
+public class EvaluatePropertyWindow extends JFrame implements BaseView {
     private EvaluatePropertyController controller = new EvaluatePropertyController();
 
     private JLabel addressLB = new JLabel("Address: ");
@@ -40,7 +41,8 @@ public class EvaluatePropertyWindow extends JFrame {
         JOptionPane.showMessageDialog(this, "Info saved", "Saved!", JOptionPane.INFORMATION_MESSAGE);
     }
 
-    private void initWindow() {
+    @Override
+    public void initWindow() {
         SpringLayout springLayout = new SpringLayout();
         getContentPane().setLayout(springLayout);
 

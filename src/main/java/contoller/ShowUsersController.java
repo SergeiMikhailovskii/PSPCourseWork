@@ -1,32 +1,15 @@
 package contoller;
 
-import client.ClientSocket;
+import base.BaseController;
 import constants.Actions;
 import view.MenuWindow;
 import view.ShowUsersWindow;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.net.Socket;
-import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 import java.util.Vector;
 
-public class ShowUsersController {
-    private ShowUsersWindow window;
-    private Socket socket;
-    private InputStream is;
-    private OutputStream os;
-
+public class ShowUsersController extends BaseController<ShowUsersWindow> {
     private int id;
-
-    public ShowUsersController() {
-        socket = ClientSocket.getSocket();
-    }
-
-    public void attachView(ShowUsersWindow window) {
-        this.window = window;
-    }
 
     public void setId(int id) {
         this.id = id;
@@ -40,41 +23,15 @@ public class ShowUsersController {
         for (int i = 0; i < rows; i++) {
             String row = getDataFromServer();
             String[] arr = row.split(" ");
-            Vector<Object> object = new Vector<>();
-            object.add(arr[0]);
-            object.add(arr[1]);
-            object.add(arr[2]);
+            Vector<Object> object = new Vector<>(Arrays.asList(arr));
             rowData.add(object);
         }
-        window.onUsersLoaded(rowData);
+        view.onUsersLoaded(rowData);
     }
 
     public void navigateBack() {
         new MenuWindow(1, id).setVisible(true);
-        window.setVisible(false);
+        view.setVisible(false);
     }
 
-    private void sendDataToServer(String res) {
-        try {
-            os = socket.getOutputStream();
-            os.write(res.getBytes());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private String getDataFromServer() {
-        byte[] bytes = new byte[100];
-        String str = null;
-        try {
-            is = socket.getInputStream();
-            //noinspection ResultOfMethodCallIgnored
-            is.read(bytes);
-            str = new String(bytes, StandardCharsets.UTF_8);
-            str = str.trim();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return str;
-    }
 }
