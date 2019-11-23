@@ -14,12 +14,9 @@ public class ShowUsersWindow extends JFrame implements BaseView {
 
     private ShowUsersController controller = new ShowUsersController();
 
-    private int id;
-
     ShowUsersWindow(int id) {
         super("Users");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        this.id = id;
         controller.attachView(this);
         controller.setId(id);
         columnNames.addAll(List.of("Login", "Password", "Role"));
@@ -27,7 +24,8 @@ public class ShowUsersWindow extends JFrame implements BaseView {
         initWindow();
     }
 
-    private void initWindow() {
+    @Override
+    public void initWindow() {
         SpringLayout springLayout = new SpringLayout();
         getContentPane().setLayout(springLayout);
 

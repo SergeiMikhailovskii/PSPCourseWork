@@ -41,7 +41,8 @@ public class EvaluatePropertyWindow extends JFrame implements BaseView {
         JOptionPane.showMessageDialog(this, "Info saved", "Saved!", JOptionPane.INFORMATION_MESSAGE);
     }
 
-    private void initWindow() {
+    @Override
+    public void initWindow() {
         SpringLayout springLayout = new SpringLayout();
         getContentPane().setLayout(springLayout);
 

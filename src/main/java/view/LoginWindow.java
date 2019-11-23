@@ -52,7 +52,8 @@ public class LoginWindow extends JFrame implements BaseView {
         }
     }
 
-    private void initWindow() {
+    @Override
+    public void initWindow() {
         SpringLayout springLayout = new SpringLayout();
         getContentPane().setLayout(springLayout);
 

@@ -22,7 +22,8 @@ public class MenuWindow extends JFrame implements BaseView {
         initWindow();
     }
 
-    private void initWindow() {
+    @Override
+    public void initWindow() {
         SpringLayout springLayout = new SpringLayout();
         getContentPane().setLayout(springLayout);
 

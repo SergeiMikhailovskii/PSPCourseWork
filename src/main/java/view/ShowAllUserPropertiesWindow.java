@@ -29,7 +29,8 @@ public class ShowAllUserPropertiesWindow extends JFrame implements BaseView {
         table = new JTable(data, columnNames);
     }
 
-    private void initWindow() {
+    @Override
+    public void initWindow() {
         SpringLayout springLayout = new SpringLayout();
         getContentPane().setLayout(springLayout);
 
