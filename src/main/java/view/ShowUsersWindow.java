@@ -16,7 +16,7 @@ public class ShowUsersWindow extends JFrame implements BaseView {
 
     ShowUsersWindow(int id) {
         super("Users");
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setDefaultCloseOperation(HIDE_ON_CLOSE);
         controller.attachView(this);
         controller.setId(id);
         columnNames.addAll(List.of("Login", "Password", "Role"));
@@ -35,7 +35,7 @@ public class ShowUsersWindow extends JFrame implements BaseView {
 
         getContentPane().add(backBtn);
         backBtn.addActionListener(e -> controller.navigateBack());
-        springLayout.putConstraint(SpringLayout.HORIZONTAL_CENTER, backBtn, 0, SpringLayout.HORIZONTAL_CENTER, getContentPane());
+        springLayout.putConstraint(SpringLayout.WEST, backBtn, 0, SpringLayout.WEST, table);
         springLayout.putConstraint(SpringLayout.NORTH, backBtn, 20, SpringLayout.SOUTH, table);
 
         setSize(300, 300);

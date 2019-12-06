@@ -26,7 +26,7 @@ public class EvaluatePropertyWindow extends JFrame implements BaseView {
 
     EvaluatePropertyWindow(int id) {
         super("Evaluate Property");
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setDefaultCloseOperation(HIDE_ON_CLOSE);
         this.id = id;
         controller.attachView(this);
         controller.setId(id);

@@ -12,4 +12,5 @@ public class Actions {
     public static final String GET_BUILD_YEAR_CHART_DATA = "GET_BUILD_YEAR_CHART_DATA";
     public static final String GET_DISTANCE_FROM_SERVER_BAR_CHART_DATA = "GET_DISTANCE_FROM_SERVER_BAR_CHART_DATA";
     public static final String GET_ALL_USER_PROPERTIES = "GET_ALL_USER_PROPERTIES";
+    public static final String DELETE_USER = "DELETE_USER";
 }

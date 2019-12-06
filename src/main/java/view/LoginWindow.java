@@ -9,7 +9,7 @@ import java.awt.*;
 
 public class LoginWindow extends JFrame implements BaseView {
     private JTextField loginTF = new JTextField();
-    private JTextField passwordTF = new JTextField();
+    private JPasswordField passwordTF = new JPasswordField();
     private JLabel loginLB = new JLabel("Login:");
     private JLabel passwordLB = new JLabel("Password:");
     private JButton loginBtn = new JButton("Login");
@@ -47,7 +47,7 @@ public class LoginWindow extends JFrame implements BaseView {
 
         if (x == 0) {
             String login = loginTF.getText();
-            String password = passwordTF.getText();
+            String password = String.valueOf(passwordTF.getPassword());
             loginController.registerUser(login, password);
         }
     }
@@ -71,6 +71,7 @@ public class LoginWindow extends JFrame implements BaseView {
         springLayout.putConstraint(SpringLayout.NORTH, passwordLB, 20, SpringLayout.SOUTH, loginTF);
 
         getContentPane().add(passwordTF);
+        passwordTF.setEchoChar('*');
         passwordTF.setPreferredSize(new Dimension(200, 20));
         springLayout.putConstraint(SpringLayout.WEST, passwordTF, 20, SpringLayout.EAST, passwordLB);
         springLayout.putConstraint(SpringLayout.NORTH, passwordTF, 20, SpringLayout.SOUTH, loginTF);
@@ -80,7 +81,7 @@ public class LoginWindow extends JFrame implements BaseView {
         springLayout.putConstraint(SpringLayout.NORTH, loginBtn, 20, SpringLayout.SOUTH, passwordTF);
         loginBtn.addActionListener(e -> {
             String login = loginTF.getText();
-            String password = passwordTF.getText();
+            String password = String.valueOf(passwordTF.getPassword());
             loginController.logInUser(login, password);
         });
 

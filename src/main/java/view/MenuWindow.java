@@ -30,7 +30,7 @@ public class MenuWindow extends JFrame implements BaseView {
         getContentPane().add(evaluatePropertyBtn);
         evaluatePropertyBtn.addActionListener(e -> {
             new EvaluatePropertyWindow(id).setVisible(true);
-            this.setVisible(false);
+            // this.setVisible(false);
         });
         springLayout.putConstraint(SpringLayout.HORIZONTAL_CENTER, evaluatePropertyBtn, 0, SpringLayout.HORIZONTAL_CENTER, getContentPane());
         springLayout.putConstraint(SpringLayout.NORTH, evaluatePropertyBtn, 20, SpringLayout.NORTH, getContentPane());
