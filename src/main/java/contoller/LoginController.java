@@ -2,6 +2,7 @@ package contoller;
 
 import base.BaseController;
 import constants.Actions;
+import constants.Callbacks;
 import view.LoginWindow;
 import view.MenuWindow;
 
@@ -35,7 +36,7 @@ public class LoginController extends BaseController<LoginWindow> {
         sendDataToServer(Actions.REGISTER);
         sendDataToServer(login + " " + password);
         String result = getDataFromServer();
-        if (result.equalsIgnoreCase("REGISTERED")) {
+        if (result.equalsIgnoreCase(Callbacks.INSERTED)) {
             view.showMessageDialog("Registered", JOptionPane.INFORMATION_MESSAGE);
             logInUser(login, password);
         }

@@ -1,6 +1,7 @@
 package server;
 
 import constants.Actions;
+import constants.Callbacks;
 import entities.Property;
 
 import java.io.IOException;
@@ -94,6 +95,8 @@ public class Server {
                                 getDistanceFromCenterChartData(outputStream);
                             } else if (clientAction.equalsIgnoreCase(Actions.GET_ALL_USER_PROPERTIES)) {
                                 getAllUserProperties(outputStream, queryContent);
+                            } else if (clientAction.equalsIgnoreCase(Actions.DELETE_USER)) {
+                                deleteUser(outputStream, queryContent);
                             }
                         }
                     } catch (IOException e) {
@@ -103,6 +106,16 @@ public class Server {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    private void deleteUser(OutputStream outputStream, String queryContent) {
+        String[] arr = queryContent.split(" ");
+        try {
+            statement.executeUpdate("DELETE FROM user WHERE login='"+arr[0]+"' AND password='"+arr[1]+"'");
+            sendDataToClient(outputStream, Callbacks.DELETED);
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
@@ -310,8 +323,8 @@ public class Server {
                     " VALUE ('" + property.getAddress() + "', " + property.getSquare() + ", "
                     + property.getPrice() + ", " + property.getDistanceFromCenterCoefficient() + ", "
                     + property.getBuildYearCoefficient() + ", " + property.getRepairDegreeCoefficient() + ", " + property.getUserID() + ")");
-            outputStream.write("Inserted".getBytes());
-        } catch (SQLException | IOException e) {
+            sendDataToClient(outputStream, Callbacks.INSERTED);
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
