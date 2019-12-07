@@ -92,17 +92,10 @@ public class ShowAllUserPropertiesWindow extends JFrame implements BaseView {
                     model.addRow(newDatum);
                 }
                 table.setModel(model);
-/*
-                table = new JTable(newData, columnNames);
-                for (Vector data : newData) {
-                    System.out.println(data.get(0));
-                }*/
+
             }
             dialog.setVisible(false);
-/*
-            getContentPane().validate();
-            getContentPane().repaint();
-*/
+
         });
 
         setSize(500, 500);
