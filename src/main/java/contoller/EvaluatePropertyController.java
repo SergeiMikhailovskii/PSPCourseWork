@@ -14,9 +14,6 @@ public class EvaluatePropertyController extends BaseController<EvaluatePropertyW
 
     public void calculatePrice(String address, int square, int distanceFromCenter, int buildYear, int repairDegree) {
         double sum;
-        // todo implement count price
-        // todo implement setting current user
-        // todo change distance, buildYear and repairDegree to real indexes from DB
         sendDataToServer(Actions.GET_DISTANCE_FROM_CENTER);
         sendDataToServer(String.valueOf(distanceFromCenter));
         double distanceCoefficient = Double.parseDouble(getDataFromServer());

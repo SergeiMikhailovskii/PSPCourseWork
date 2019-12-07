@@ -112,7 +112,7 @@ public class Server {
     private void deleteUser(OutputStream outputStream, String queryContent) {
         String[] arr = queryContent.split(" ");
         try {
-            statement.executeUpdate("DELETE FROM user WHERE login='"+arr[0]+"' AND password='"+arr[1]+"'");
+            statement.executeUpdate("DELETE FROM user WHERE login='" + arr[0] + "' AND password='" + arr[1] + "'");
             sendDataToClient(outputStream, Callbacks.DELETED);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -132,7 +132,6 @@ public class Server {
 
             resultSet = statement.executeQuery("SELECT * FROM property WHERE userId=" + id);
 
-            // todo move all columns names to constants
 
             while (resultSet.next()) {
                 String res = resultSet.getString("address") + " "
@@ -286,7 +285,6 @@ public class Server {
             sendDataToClient(outputStream, String.valueOf(rows));
             resultSet.first();
 
-            //todo prettify this part of code
             String res = resultSet.getString("login") + " " + resultSet.getString("password") + " " + resultSet.getInt("role");
             sendDataToClient(outputStream, res);
             while (resultSet.next()) {
