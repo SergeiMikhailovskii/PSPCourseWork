@@ -4,7 +4,13 @@ import base.BaseView;
 import contoller.EvaluatePropertyController;
 
 import javax.swing.*;
+import javax.swing.text.AbstractDocument;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.DocumentFilter;
 import java.awt.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class EvaluatePropertyWindow extends JFrame implements BaseView {
     private EvaluatePropertyController controller = new EvaluatePropertyController();
@@ -63,6 +69,17 @@ public class EvaluatePropertyWindow extends JFrame implements BaseView {
         squareTF.setPreferredSize(new Dimension(200, 20));
         springLayout.putConstraint(SpringLayout.WEST, squareTF, 20, SpringLayout.EAST, squareLB);
         springLayout.putConstraint(SpringLayout.NORTH, squareTF, 20, SpringLayout.SOUTH, addressTF);
+        ((AbstractDocument) squareTF.getDocument()).setDocumentFilter(new DocumentFilter() {
+            Pattern regEx = Pattern.compile("\\d*");
+            @Override
+            public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException {
+                Matcher matcher = regEx.matcher(text);
+                if (!matcher.matches()) {
+                    return;
+                }
+                super.replace(fb, offset, length, text, attrs);
+            }
+        });
 
         getContentPane().add(distanceFromCenterLB);
         springLayout.putConstraint(SpringLayout.WEST, distanceFromCenterLB, 20, SpringLayout.WEST, getContentPane());
@@ -72,6 +89,17 @@ public class EvaluatePropertyWindow extends JFrame implements BaseView {
         distanceFromCenterTF.setPreferredSize(new Dimension(200, 20));
         springLayout.putConstraint(SpringLayout.WEST, distanceFromCenterTF, 20, SpringLayout.EAST, distanceFromCenterLB);
         springLayout.putConstraint(SpringLayout.NORTH, distanceFromCenterTF, 20, SpringLayout.SOUTH, squareTF);
+        ((AbstractDocument) distanceFromCenterTF.getDocument()).setDocumentFilter(new DocumentFilter() {
+            Pattern regEx = Pattern.compile("\\d*");
+            @Override
+            public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException {
+                Matcher matcher = regEx.matcher(text);
+                if (!matcher.matches()) {
+                    return;
+                }
+                super.replace(fb, offset, length, text, attrs);
+            }
+        });
 
         getContentPane().add(buildYearLB);
         springLayout.putConstraint(SpringLayout.WEST, buildYearLB, 20, SpringLayout.WEST, getContentPane());
@@ -81,6 +109,17 @@ public class EvaluatePropertyWindow extends JFrame implements BaseView {
         buildYearTF.setPreferredSize(new Dimension(200, 20));
         springLayout.putConstraint(SpringLayout.WEST, buildYearTF, 20, SpringLayout.EAST, buildYearLB);
         springLayout.putConstraint(SpringLayout.NORTH, buildYearTF, 20, SpringLayout.SOUTH, distanceFromCenterTF);
+        ((AbstractDocument) buildYearTF.getDocument()).setDocumentFilter(new DocumentFilter() {
+            Pattern regEx = Pattern.compile("\\d*");
+            @Override
+            public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException {
+                Matcher matcher = regEx.matcher(text);
+                if (!matcher.matches()) {
+                    return;
+                }
+                super.replace(fb, offset, length, text, attrs);
+            }
+        });
 
         getContentPane().add(repairDegreeLB);
         springLayout.putConstraint(SpringLayout.WEST, repairDegreeLB, 20, SpringLayout.WEST, getContentPane());
@@ -90,6 +129,17 @@ public class EvaluatePropertyWindow extends JFrame implements BaseView {
         repairDegreeTF.setPreferredSize(new Dimension(200, 20));
         springLayout.putConstraint(SpringLayout.WEST, repairDegreeTF, 20, SpringLayout.EAST, repairDegreeLB);
         springLayout.putConstraint(SpringLayout.NORTH, repairDegreeTF, 20, SpringLayout.SOUTH, buildYearTF);
+        ((AbstractDocument) repairDegreeTF.getDocument()).setDocumentFilter(new DocumentFilter() {
+            Pattern regEx = Pattern.compile("\\d*");
+            @Override
+            public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException {
+                Matcher matcher = regEx.matcher(text);
+                if (!matcher.matches()) {
+                    return;
+                }
+                super.replace(fb, offset, length, text, attrs);
+            }
+        });
 
         getContentPane().add(calculateBtn);
         calculateBtn.addActionListener(e -> {
