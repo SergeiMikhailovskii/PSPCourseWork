@@ -25,6 +25,6 @@ public class YearPieChartWindow extends ApplicationFrame {
     }
 
     private JFreeChart createChart() {
-        return ChartFactory.createPieChart("Flats", dataset, true, true, false);
+        return ChartFactory.createPieChart("Недвижимость", dataset, true, true, false);
     }
 }

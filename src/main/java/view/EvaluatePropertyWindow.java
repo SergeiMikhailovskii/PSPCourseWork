@@ -15,23 +15,23 @@ import java.util.regex.Pattern;
 public class EvaluatePropertyWindow extends JFrame implements BaseView {
     private EvaluatePropertyController controller = new EvaluatePropertyController();
 
-    private JLabel addressLB = new JLabel("Address: ");
+    private JLabel addressLB = new JLabel("Адрес: ");
     private JTextField addressTF = new JTextField();
-    private JLabel squareLB = new JLabel("Square: ");
+    private JLabel squareLB = new JLabel("Площадь: ");
     private JTextField squareTF = new JTextField();
-    private JLabel totalLB = new JLabel("Total: ");
-    private JLabel distanceFromCenterLB = new JLabel("Distance from center: ");
+    private JLabel totalLB = new JLabel("Итого: ");
+    private JLabel distanceFromCenterLB = new JLabel("Расстояние от центра: ");
     private JTextField distanceFromCenterTF = new JTextField();
-    private JLabel buildYearLB = new JLabel("Year of build: ");
+    private JLabel buildYearLB = new JLabel("Год постройки: ");
     private JTextField buildYearTF = new JTextField();
-    private JLabel repairDegreeLB = new JLabel("Repair degree:");
+    private JLabel repairDegreeLB = new JLabel("Степень ремонта:");
     private JTextField repairDegreeTF = new JTextField();
-    private JButton calculateBtn = new JButton("Calculate");
+    private JButton calculateBtn = new JButton("Оценить");
 
     private int id;
 
     EvaluatePropertyWindow(int id) {
-        super("Evaluate Property");
+        super("Оценка недвижимости");
         setDefaultCloseOperation(HIDE_ON_CLOSE);
         this.id = id;
         controller.attachView(this);

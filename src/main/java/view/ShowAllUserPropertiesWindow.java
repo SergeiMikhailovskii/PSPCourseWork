@@ -11,8 +11,8 @@ import java.util.Vector;
 
 public class ShowAllUserPropertiesWindow extends JFrame implements BaseView {
     private JTable table = new JTable();
-    private JButton findPropertyBtn = new JButton("Find property");
-    private JButton searchDlgBtn = new JButton("Search");
+    private JButton findPropertyBtn = new JButton("Найти недвижимость");
+    private JButton searchDlgBtn = new JButton("Искать");
     private JDialog dialog = new JDialog();
     private JTextField dialogTF = new JTextField();
 
@@ -24,9 +24,9 @@ public class ShowAllUserPropertiesWindow extends JFrame implements BaseView {
     private int id;
 
     ShowAllUserPropertiesWindow(int id) {
-        super("Show all user properties window");
+        super("Окно нежвижимости");
         controller.attachView(this);
-        columnNames.addAll(List.of("Address", "Square", "Price", "DistanceFromCenterID", "BuildYearID", "RepairDegreeID"));
+        columnNames.addAll(List.of("Адрес", "Площадь", "Цена", "Расстояние от центра", "Год постройки", "Степень ремонта"));
         this.id = id;
         controller.setId(this.id);
         controller.getAllUserProperties();
@@ -55,7 +55,7 @@ public class ShowAllUserPropertiesWindow extends JFrame implements BaseView {
 
         JPanel pane = new JPanel();
         pane.setLayout(new FlowLayout());
-        pane.add(new JLabel("Enter the property address"));
+        pane.add(new JLabel("Введите адрес: "));
         dialogTF.setPreferredSize(new Dimension(100, 20));
         pane.add(dialogTF);
         pane.add(searchDlgBtn);

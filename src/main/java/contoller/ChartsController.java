@@ -19,11 +19,11 @@ public class ChartsController extends BaseController {
     }
 
     private void showDistanceFromCenterBarChartWindow() {
-        new DistanceFromCenterBarChartWindow("Distance from center", getDistanceFromCenterBarChartData()).setVisible(true);
+        new DistanceFromCenterBarChartWindow("Расстояние от центра", getDistanceFromCenterBarChartData()).setVisible(true);
     }
 
     private void showYearPieChartWindow() {
-        new YearPieChartWindow("Year chart", getBuildYearData()).setVisible(true);
+        new YearPieChartWindow("График по годам", getBuildYearData()).setVisible(true);
     }
 
     private CategoryDataset getDistanceFromCenterBarChartData() {

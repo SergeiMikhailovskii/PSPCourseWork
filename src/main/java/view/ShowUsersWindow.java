@@ -10,8 +10,8 @@ import java.util.Vector;
 
 public class ShowUsersWindow extends JFrame implements BaseView {
     private JTable table = new JTable();
-    private JButton backBtn = new JButton("Back");
-    private JButton deleteBtn = new JButton("Delete");
+    private JButton backBtn = new JButton("Назад");
+    private JButton deleteBtn = new JButton("Удалить");
     private Vector<Vector> users;
 
     private Vector<String> columnNames = new Vector<>();
@@ -19,11 +19,11 @@ public class ShowUsersWindow extends JFrame implements BaseView {
     private ShowUsersController controller = new ShowUsersController();
 
     ShowUsersWindow(int id) {
-        super("Users");
+        super("Пользователи");
         setDefaultCloseOperation(HIDE_ON_CLOSE);
         controller.attachView(this);
         controller.setId(id);
-        columnNames.addAll(List.of("Login", "Password", "Role"));
+        columnNames.addAll(List.of("Логин", "Пароль", "Роль"));
         getUsersFromDB();
         initWindow();
     }
@@ -65,7 +65,7 @@ public class ShowUsersWindow extends JFrame implements BaseView {
     }
 
     public void showMessageDialog(String text, int dialogType) {
-        JOptionPane.showMessageDialog(this, text, "Login", dialogType);
+        JOptionPane.showMessageDialog(this, text, "Логин", dialogType);
     }
 
 

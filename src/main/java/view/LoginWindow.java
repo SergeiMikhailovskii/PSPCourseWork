@@ -10,9 +10,9 @@ import java.awt.*;
 public class LoginWindow extends JFrame implements BaseView {
     private JTextField loginTF = new JTextField();
     private JPasswordField passwordTF = new JPasswordField();
-    private JLabel loginLB = new JLabel("Login:");
-    private JLabel passwordLB = new JLabel("Password:");
-    private JButton loginBtn = new JButton("Login");
+    private JLabel loginLB = new JLabel("Логин:");
+    private JLabel passwordLB = new JLabel("Пароль:");
+    private JButton loginBtn = new JButton("Войти");
 
     private LoginController loginController = new LoginController();
 
@@ -23,22 +23,22 @@ public class LoginWindow extends JFrame implements BaseView {
     }
 
     private LoginWindow() {
-        super("Login window");
+        super("Окно авторизации");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         loginController.attachView(this);
         initWindow();
     }
 
     public void showMessageDialog(String text, int dialogType) {
-        JOptionPane.showMessageDialog(this, text, "Login", dialogType);
+        JOptionPane.showMessageDialog(this, text, "Логин", dialogType);
     }
 
     public void showRegisterDialog() {
-        String[] options = {"Yes, please", "No, thanks"};
+        String[] options = {"Да", "Нет"};
         int x = JOptionPane.showOptionDialog(
                 this,
-                "Such user is not found. Do you want to register?",
-                "Register",
+                "Пользователь не найден. Зарегистрироваться?",
+                "Регистрация",
                 JOptionPane.YES_NO_OPTION,
                 JOptionPane.QUESTION_MESSAGE,
                 null,

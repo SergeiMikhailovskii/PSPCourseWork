@@ -13,8 +13,8 @@ public class DistanceFromCenterBarChartWindow extends ApplicationFrame {
         super(title);
         JFreeChart barChart = ChartFactory.createBarChart(
                 title,
-                "Distance in km",
-                "Amount",
+                "Расстояние в километрах",
+                "Количество",
                 dataset,
                 PlotOrientation.VERTICAL,
                 true,

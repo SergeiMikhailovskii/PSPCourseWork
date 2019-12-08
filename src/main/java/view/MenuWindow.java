@@ -6,16 +6,16 @@ import contoller.ChartsController;
 import javax.swing.*;
 
 public class MenuWindow extends JFrame implements BaseView {
-    private JButton evaluatePropertyBtn = new JButton("Evaluate property");
-    private JButton showAllUserPropertiesBtn = new JButton("Show all user properties");
-    private JButton showCharts = new JButton("Show charts");
-    private JButton showAllUsersBtn = new JButton("Show all users");
+    private JButton evaluatePropertyBtn = new JButton("Оценить недвижимость");
+    private JButton showAllUserPropertiesBtn = new JButton("Просмотреть всю недвижимость пользователя");
+    private JButton showCharts = new JButton("Просмотреть графики");
+    private JButton showAllUsersBtn = new JButton("Просмотреть всех пользователей");
 
     private int role;
     private int id;
 
     public MenuWindow(int role, int id) {
-        super("Menu window");
+        super("Окно меню");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.id = id;
         this.role = role;

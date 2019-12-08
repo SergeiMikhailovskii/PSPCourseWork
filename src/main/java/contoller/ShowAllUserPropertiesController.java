@@ -31,7 +31,6 @@ public class ShowAllUserPropertiesController extends BaseController<ShowAllUserP
             Vector<Object> object = new Vector<>(Arrays.asList(arr));
             rowData.add(object);
         }
-        System.out.println(rowData.size() + " SIZE");
         view.setTable(rowData);
     }
 }
